@@ -1,83 +1,155 @@
 .carousel-container {
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    width: 70%;
-    height: 250px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Centra el texto horizontalmente */
-    padding: 20px;
-    background-color: rgba(255, 202, 134, 0.5);
-    border-width: 5px;
-    border-style: solid;
-    border-image-slice: 1; /* Necesario para que el degradado se aplique al borde */
-    animation: animate-border 3s linear infinite;
-    font-size: 1.5em;
-    font-weight: 1.5rem;
-    color: #d62e60; /* Color del texto 312ed6 d62e60 */
-    text-align: center;
-    backdrop-filter: blur(5px);
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: #ffca86;
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 70%;
+  height: 250px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centra el texto horizontalmente */
+  padding: 20px;
+  background-color: rgba(255, 202, 134, 0.5);
+  border-width: 5px;
+  border-style: solid;
+  border-image-slice: 1; /* Necesario para que el degradado se aplique al borde */
+  animation: animate-border 3s linear infinite;
+  font-size: 1.5em;
+  font-weight: 1.5rem;
+  color: #d62e60; /* Color del texto 312ed6 d62e60 */
+  text-align: center;
+  backdrop-filter: blur(5px);
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #ffca86;
+}
+
+@keyframes animate-border {
+  0% {
+    border-image-source: linear-gradient(90deg, #ffca86, #294866);
   }
-  
-  @keyframes animate-border {
-    0% {
-      border-image-source: linear-gradient(90deg, #ffca86, #294866);
-    }
-    25% {
-      border-image-source: linear-gradient(180deg, #ffca86, #294866);
-    }
-    50% {
-      border-image-source: linear-gradient(270deg, #ffca86, #294866);
-    }
-    75% {
-      border-image-source: linear-gradient(360deg, #ffca86, #294866);
-    }
-    100% {
-      border-image-source: linear-gradient(90deg, #ffca86, #294866);
-    }
+  25% {
+    border-image-source: linear-gradient(180deg, #ffca86, #294866);
   }
-  
+  50% {
+    border-image-source: linear-gradient(270deg, #ffca86, #294866);
+  }
+  75% {
+    border-image-source: linear-gradient(360deg, #ffca86, #294866);
+  }
+  100% {
+    border-image-source: linear-gradient(90deg, #ffca86, #294866);
+  }
+}
+
+.slider-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider {
+  height: 100px; /* Altura fija para evitar movimientos */
+  width: 100%; /* Opcional: Ajusta según el diseño */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Evita contenido desbordado */
+}
+
+.dot-container {
+  margin-top: 20px;
+  position: absolute;
+  bottom: -80px; /* Fija los botones en una posición */
+}
+
+.dot {
+  border-color: #ffca86;
+  width: 10px;
+  height: 10px;
+  background-color: #225371;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.btn {
+  background-color: #225371;
+  border-color: #ffca86;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .carousel-container {
+    /*position: relative;*/
+    width: 90%;
+    height: 10%;
+    transform: translateY(-50px); /* Mueve el contenedor 40px hacia arriba */
+  }
   .slider-container {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    width: 100%; /* Ocupa todo el ancho de la ventana */
+    height: 60vh; /* Altura ajustada a un 60% de la altura de la ventana */
+    display: flex; /* Asegura que el contenido se alinee correctamente */
+    align-items: center; /* Centra el contenido verticalmente */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    overflow: hidden; /* Evita contenido fuera de los límites */
   }
-  
+
   .slider {
-    height: 100px; /* Altura fija para evitar movimientos */
-    width: 100%; /* Opcional: Ajusta según el diseño */
+    width: 100%; /* Asegura que el contenido del slider también ocupe todo el ancho */
+    height: 100%; /* Asegura que el contenido del slider ocupe toda la altura */
     display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden; /* Evita contenido desbordado */
+    align-items: center; /* Centra el contenido del slider */
+    justify-content: center; /* Centra horizontalmente */
+    background-size: cover; /* Asegura que las imágenes o fondos se ajusten */
+    background-position: center; /* Centra el fondo */
   }
-  
+
+  .slider h1 {
+    position: absolute; /* Coloca el texto encima del slider */
+    z-index: 10; /* Asegura que el texto esté al frente */
+    white-space: normal; /* Permite que el texto se ajuste automáticamente */
+    word-wrap: break-word; /* Ajusta palabras largas */
+    font-size: 1.5rem; /* Tamaño de texto ajustado para móviles */
+    text-align: center;
+    padding: 10px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    color: #fff; /* Color del texto */
+    background: rgba(0, 0, 0, 0.5); /* Fondo semitransparente para contraste */
+  }
+
   .dot-container {
-    margin-top: 20px;
-    position: absolute;
-    bottom: -80px; /* Fija los botones en una posición */
+    display: flex;
+    justify-content: center; /* Centra los indicadores de navegación */
+    gap: 5px; /* Espaciado entre los botones */
+    margin-top: 10px; /* Espacio entre los botones y el slider */
   }
-  
-  .dot {
-    border-color: #ffca86;
+
+  .btn {
+    border: none;
+    background: #333;
     width: 10px;
     height: 10px;
-    background-color: #225371;
     border-radius: 50%;
-    margin: 0 5px;
-    cursor: pointer;
-    display: inline-block;
     cursor: pointer;
   }
-  
-  .btn{
-    background-color: #225371;
-    border-color: #ffca86;
-    cursor: pointer;
+
+  .btn:focus {
+    outline: none;
   }
+
+  .dot {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: #666;
+  }
+
+  .btn.active .dot {
+    background-color: #fff; /* Color activo del indicador */
+  }
+}

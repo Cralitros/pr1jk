@@ -2,10 +2,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <div class="slider-container">
         <div class="slider">
-            <h1 [ngClass]="{'animate__animated animate__backInRight': animate}" (animationend)="resetAnimation()">
+            <h1 
+                [ngClass]="currentAnimation" 
+                (animationend)="onAnimationEnd()">
                 {{itemSeleccionado}}
             </h1>
-
         </div>
         <div class="dot-container">
             <button class="btn" *ngFor="let item of items; let ind=index" (click)="currentSlide(ind)">
@@ -13,7 +14,4 @@
             </button>
         </div>
     </div>
-    <script>
-
-    </script>
 </div>

@@ -3,8 +3,8 @@
   position: fixed;
   top: 20px;
   right: 20px;
-  background-color: #333;
-  color: #264a64;
+  background-color: #4cf1f7;
+  color: #1c3141;
   padding: 10px;
   border-radius: 4px;
   cursor: pointer;
@@ -149,13 +149,49 @@
 .srv {
   padding-left: 10px;
 }
-/* Media query para ocultar el botón y hacer el menú siempre visible en pantallas grandes */
+img.imagen {
+  width: 160px;
+  height: 55px;
+}
+.icsn {
+  position: relative;
+  top: 12px;
+}
+/* Media query para ocultar el botón y hacer el menú siempre visible en pantallas grandes  .icono{
+    padding: 10px 0px!important;
+    /*padding-right: 0px;*/
+@media (max-width: 600px) {
+  .submenu {
+    width: 240px;
+  }
+  .icono {
+    padding: 10px 2px !important; 
+  }
+  .icsn {
+    display: flex; /* or inline-flex */
+    flex-direction: row;
+    gap: 15px;
+  }
+  .titulo{
+    font-size: 25px !important;
+    font-weight: bolder;
+    margin: 0; /* Elimina margen */
+    padding: 0; /* Elimina relleno */
+    display: inline-block; /* Permite manipular ancho y alto */
+    text-align: center;    /* Alinea el texto horizontalmente */
+    
+    height: 50px; /* Ajusta según tu diseño */
+    
+  }
+}
 @media (min-width: 600px) {
+  img.imagen {
+    width: 160px;
+  }
   .menu-button {
     display: none;
     /* Oculta el botón en pantallas grandes */
   }
-
   .floating-menu {
     position: fixed;
     top: 20px;
@@ -167,4 +203,5 @@
     flex-direction: row;
     box-shadow: none;
   }
+  
 }
