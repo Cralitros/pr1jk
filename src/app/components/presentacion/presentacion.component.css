@@ -1,0 +1,12 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../../../../public/bnss.jpeg"); /* Cambia 'tu-imagen.jpg' por la ruta de tu imagen */
+  background-size: cover; /* La imagen cubrirá toda el área del div */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  z-index: -1; /* Envía el div al fondo */
+}

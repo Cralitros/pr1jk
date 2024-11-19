@@ -1,0 +1,170 @@
+/* Botón de menú hamburguesa */
+.menu-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #333;
+  color: #264a64;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 1001;
+  /* Encima del menú */
+}
+
+/* Menú deslizante oculto */
+.floating-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 50%;
+  background-color: #fce2a6;
+  transform: translateX(100%);
+  /* Oculta el menú fuera de la pantalla */
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  gap: 10px;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  font-size: 1.7rem;
+}
+
+/* Estilo del menú cuando está abierto */
+.floating-menu.open {
+  transform: translateX(0);
+  /* Desliza el menú hacia adentro */
+}
+
+/* Estilos de los elementos del menú */
+.menu-item {
+  color: #264a64;
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  position: 1.2rem; /* Necesario para posicionar el submenú debajo */
+}
+
+.menu-item:hover {
+  background-color: #bbd7c8;
+  /*font-weight: bolder;*/
+  color: #000000;
+}
+
+/* Contenedor que incluye el enlace y el submenú */
+.menu-item-with-submenu {
+  padding-top: 10px;
+  position: relative;
+}
+
+/* Submenú que se muestra debajo del enlace */
+.submenu {
+  position: absolute;
+  top: 100%; /* Esto coloca el submenú justo debajo del elemento */
+  left: -18px;
+  width: 320px;
+  list-style-type: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #fce2a6;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  margin-top: 12px;
+  margin-right: 0px;
+  margin-left: 0px;
+  opacity: 0; /* Inicialmente invisible */
+  visibility: hidden; /* Evita que ocupe espacio cuando no es visible */
+  transition: opacity 0.3s ease, visibility 0s 0.3s; /* Retraso en la visibilidad */
+  list-style: none; /* Elimina los puntos de la lista */
+  margin: 0; /* Elimina el margen por defecto */
+  margin-top: 16px;
+  /* padding: 10px; /* Elimina el padding por defecto */
+}
+
+/* Cuando el mouse está sobre el contenedor del submenú */
+.menu-item-with-submenu:hover .submenu {
+  opacity: 1;
+  visibility: visible; /* Hace que el submenú sea visible */
+  transition: opacity 0.3s ease, visibility 0s 0s; /* Inicia la visibilidad sin retraso */
+}
+
+/* Ajustes adicionales para el submenú */
+.menu-item-with-submenu .submenu {
+  transition: opacity 0.3s ease, visibility 0s 0.3s; /* Aparece y desaparece suavemente */
+}
+
+.submenu li {
+  padding: 5px 0;
+}
+
+.submenu li a {
+  color: #264a64;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  font-size: 1.3rem; /* Aumenta el tamaño de fuente para el submenú */
+}
+
+.submenu li a:hover {
+  background-color: #bbd7c8;
+  color: #294866;
+  /*  padding-left: 20px;*/
+  font-weight: bold;
+}
+
+.menu-item img {
+  transition: filter 0.3s ease;
+}
+
+.menu-item:hover .facebook {
+  filter: invert(32%) sepia(96%) saturate(542%) hue-rotate(187deg)
+    brightness(104%) contrast(102%);
+}
+
+.menu-item:hover .linkedin {
+  filter: invert(37%) sepia(100%) saturate(435%) hue-rotate(185deg)
+    brightness(100%) contrast(90%);
+}
+
+.menu-item:hover .youtube {
+  filter: invert(30%) sepia(89%) saturate(574%) hue-rotate(330deg)
+    brightness(99%) contrast(95%);
+}
+
+.menu-item:hover .whastapp {
+  filter: invert(35%) sepia(77%) saturate(545%) hue-rotate(90deg)
+    brightness(100%) contrast(90%);
+}
+.menu-item:hover .color {
+  filter: invert(31%) sepia(43%) saturate(379%) hue-rotate(159deg)
+    brightness(95%) contrast(88%);
+}
+.colorfuente {
+  color: #00a8b8;
+}
+.srv {
+  padding-left: 10px;
+}
+/* Media query para ocultar el botón y hacer el menú siempre visible en pantallas grandes */
+@media (min-width: 600px) {
+  .menu-button {
+    display: none;
+    /* Oculta el botón en pantallas grandes */
+  }
+
+  .floating-menu {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    height: auto;
+    width: auto;
+    transform: translateX(0);
+    /* Muestra el menú */
+    flex-direction: row;
+    box-shadow: none;
+  }
+}

@@ -1,0 +1,83 @@
+.carousel-container {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 70%;
+    height: 250px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centra el texto horizontalmente */
+    padding: 20px;
+    background-color: rgba(255, 202, 134, 0.5);
+    border-width: 5px;
+    border-style: solid;
+    border-image-slice: 1; /* Necesario para que el degradado se aplique al borde */
+    animation: animate-border 3s linear infinite;
+    font-size: 1.5em;
+    font-weight: 1.5rem;
+    color: #d62e60; /* Color del texto 312ed6 d62e60 */
+    text-align: center;
+    backdrop-filter: blur(5px);
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #ffca86;
+  }
+  
+  @keyframes animate-border {
+    0% {
+      border-image-source: linear-gradient(90deg, #ffca86, #294866);
+    }
+    25% {
+      border-image-source: linear-gradient(180deg, #ffca86, #294866);
+    }
+    50% {
+      border-image-source: linear-gradient(270deg, #ffca86, #294866);
+    }
+    75% {
+      border-image-source: linear-gradient(360deg, #ffca86, #294866);
+    }
+    100% {
+      border-image-source: linear-gradient(90deg, #ffca86, #294866);
+    }
+  }
+  
+  .slider-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .slider {
+    height: 100px; /* Altura fija para evitar movimientos */
+    width: 100%; /* Opcional: Ajusta según el diseño */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Evita contenido desbordado */
+  }
+  
+  .dot-container {
+    margin-top: 20px;
+    position: absolute;
+    bottom: -80px; /* Fija los botones en una posición */
+  }
+  
+  .dot {
+    border-color: #ffca86;
+    width: 10px;
+    height: 10px;
+    background-color: #225371;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  .btn{
+    background-color: #225371;
+    border-color: #ffca86;
+    cursor: pointer;
+  }

@@ -1,0 +1,21 @@
+<div class="menu-button" (click)="toggleMenu()">
+    &#9776; <!-- Símbolo de menú hamburguesa -->
+</div>
+
+<div class="floating-menu" [class.open]="isMenuOpen">
+    <img src="avanza.png" alt="" srcset="" height="50px">
+    <a href="#" class="menu-item"><img class="facebook" src="facebook.svg" alt="Facebook" srcset="" height="32px"></a>
+    <a href="#" class="menu-item"><img class="linkedin" src="linkedin.svg" alt="LinkedIn" srcset="" height="32px"></a>
+    <a href="#" class="menu-item"><img class="youtube" src="youtube.svg" alt="Youtube" srcset="" height="32px"></a>
+    <a href="#" class="menu-item"><img class="whastapp" src="whastapp.svg" alt="Whatsapp" srcset="" height="32px"></a>
+    <div class="menu-item-with-submenu">
+        <a href="#" class="menu-item">NUESTROS SERVICIOS</a>
+        <ul class="submenu">
+            <li class="menu-item si"><img src="indice.svg" class="color" alt="" srcset="" width="12px"><a href="#" class="srv colorfuente">CAPACITACIÓN EMPRESARIAL</a></li>
+            <li class="menu-item si"><img src="indice.svg" class="color" alt="" srcset="" width="12px"><a href="#" class="srv">CONSULTORÍA INTEGRAL</a></li>
+            <li class="menu-item si"><img src="indice.svg" class="color" alt="" srcset="" width="12px"><a href="#" class="srv">ASESORIA EN DESARROLLO TECNOLÓGICO</a></li>
+            <li class="menu-item si"><img src="indice.svg" class="color" alt="" srcset="" width="12px"><a href="#" class="srv">ACOMPAÑAMIENTO FINANCIERO Y BANCARIO</a></li>
+            <li class="menu-item si"><img src="indice.svg" class="color" alt="" srcset="" width="12px"><a href="#" class="srv">NETWORKING EMPRESARIAL</a></li>
+        </ul>
+    </div>
+</div>
