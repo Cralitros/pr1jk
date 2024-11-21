@@ -1,5 +1,33 @@
+<div class="scroll-container">
+    <div class="section section1" id="presentacion">
+      <app-presentacion></app-presentacion>
+    </div>
+    <div class="divider"></div>
+    <div class="section section2" id="segundavista">
+      <app-segundavista></app-segundavista>
+    </div>
+  </div>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const sections = document.querySelectorAll(".section");
+        const observerOptions = {
+            threshold: 0.5, // El porcentaje visible necesario para activar
+        };
 
-<app-presentacion></app-presentacion>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("active");
+                } else {
+                    entry.target.classList.remove("active");
+                }
+            });
+        }, observerOptions);
 
+        sections.forEach((section) => {
+            observer.observe(section);
+        });
+    });
 
+</script>
 <router-outlet />

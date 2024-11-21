@@ -1,0 +1,115 @@
+/* styles.css o el archivo CSS global */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.scroll-container {
+  scroll-snap-type: y mandatory; /* Habilita el scroll a secciones */
+  scroll-behavior: smooth; /* Desplazamiento suave */
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.section {
+  height: 100vh; /* Cada sección ocupa el 100% de la altura de la pantalla */
+  display: flex; /* Centrar contenido */
+  align-items: center; /* Centrar contenido verticalmente */
+  justify-content: center; /* Centrar contenido horizontalmente */
+  opacity: 0; /* Oculto inicialmente */
+  transform: translateY(50px); /* Aparece con animación desde abajo */
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Transición más suave */
+  scroll-snap-align: start; /* Alinea cada sección al inicio del viewport */
+}
+
+.section.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section1 {
+  background-color: #fbfff0;
+}
+
+.section2 {
+  background-color: #fce2a6;
+}
+
+.section3 {
+  background-color: #f4c2c2;
+}
+
+.divider {
+  position: relative;
+  height: 20px; /* Altura del zigzag */
+  background-color: #eefacf;
+  clip-path: polygon(
+    0 100%,
+    10% 0,
+    20% 100%,
+    30% 0,
+    40% 100%,
+    50% 0,
+    60% 100%,
+    70% 0,
+    80% 100%,
+    90% 0,
+    100% 100%
+  );
+  overflow: hidden;
+}
+
+.light {
+  position: absolute;
+  top: 0;
+  left: -10%;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 200, 0.8),
+    rgba(255, 255, 200, 0) 70%
+  );
+  border-radius: 50%;
+  animation: follow-path 5s linear infinite;
+}
+
+@keyframes follow-path {
+  0% {
+    transform: translate(0%, 100%);
+  }
+  10% {
+    transform: translate(10%, 0%);
+  }
+  20% {
+    transform: translate(20%, 100%);
+  }
+  30% {
+    transform: translate(30%, 0%);
+  }
+  40% {
+    transform: translate(40%, 100%);
+  }
+  50% {
+    transform: translate(50%, 0%);
+  }
+  60% {
+    transform: translate(60%, 100%);
+  }
+  70% {
+    transform: translate(70%, 0%);
+  }
+  80% {
+    transform: translate(80%, 100%);
+  }
+  90% {
+    transform: translate(90%, 0%);
+  }
+  100% {
+    transform: translate(100%, 100%);
+  }
+}
+
