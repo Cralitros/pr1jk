@@ -85,7 +85,7 @@
 @media (max-width: 600px) {
   .carousel-container {
     /*position: relative;*/
-    width: 90%;
+    width: 89%;
     height: 10%;
     transform: translateY(-50px); /* Mueve el contenedor 40px hacia arriba */
   }

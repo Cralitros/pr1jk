@@ -157,6 +157,9 @@ img.imagen {
   position: relative;
   top: 12px;
 }
+.imagen-movil{
+  padding: 10px;
+}
 /* Media query para ocultar el botón y hacer el menú siempre visible en pantallas grandes  .icono{
     padding: 10px 0px!important;
     /*padding-right: 0px;*/
@@ -203,5 +206,7 @@ img.imagen {
     flex-direction: row;
     box-shadow: none;
   }
-  
+  .imagen-movil{
+    display: none;
+  }
 }

@@ -1,32 +1,36 @@
-<div class="menu-button" (click)="toggleMenu()">
-    &#9776; <!-- Símbolo de menú hamburguesa -->
+<!-- Botón para abrir/cerrar el menú -->
+<div 
+    class="menu-button" 
+    (click)="toggleMenu()" 
+    (mouseleave)="handleMouseLeave()">
+    &#9776; <!-- Botón del menú -->
+</div>
+<div class="imagen-movil">
+    <img class="imagen" src="assets/avanza.png" alt="">
 </div>
 
-<div class="floating-menu" [class.open]="isMenuOpen">
-    <img class="imagen" src="avanza.png" alt="" srcset="">
+<!-- Menú flotante -->
+<div 
+    class="floating-menu" 
+    [class.open]="isMenuOpen" 
+    (mouseenter)="keepMenuOpen()" 
+    (mouseleave)="handleMouseLeave()"
+    (click)="handleContentClick($event)"> <!-- Captura clics dentro del menú -->
+    <img class="imagen" src="assets/avanza.png" alt="">
     <div class="icsn">
-        <a href="#" class="menu-item icono"><img class="facebook" src="facebook.svg" alt="Facebook" srcset=""
-                height="32px"></a>
-        <a href="#" class="menu-item icono"><img class="linkedin" src="linkedin.svg" alt="LinkedIn" srcset=""
-                height="32px"></a>
-        <a href="#" class="menu-item icono"><img class="youtube" src="youtube.svg" alt="Youtube" srcset=""
-                height="32px"></a>
-        <a href="#" class="menu-item icono"><img class="whastapp" src="whastapp.svg" alt="Whatsapp" srcset=""
-                height="32px"></a>
+        <a href="#" class="menu-item icono"><img class="facebook" src="assets/facebook.svg" alt="Facebook" height="32px"></a>
+        <a href="#" class="menu-item icono"><img class="linkedin" src="assets/linkedin.svg" alt="LinkedIn" height="32px"></a>
+        <a href="#" class="menu-item icono"><img class="youtube" src="assets/youtube.svg" alt="Youtube" height="32px"></a>
+        <a href="#" class="menu-item icono"><img class="whatsapp" src="assets/whastapp.svg" alt="Whatsapp" height="32px"></a>
     </div>
     <div class="menu-item-with-submenu">
-        <a href="#" class="menu-item titulo">NUESTROS SERVICIOS</a>
+        <a class="menu-item titulo">NUESTROS SERVICIOS</a>
         <ul class="submenu">
-            <li class="menu-item si"><img src="indice.svg" class="color" alt="" srcset="" width="12px"><a href="#"
-                    class="srv colorfuente">CAPACITACIÓN EMPRESARIAL</a></li>
-            <li class="menu-item si"><img src="indice.svg" class="color" alt="" srcset="" width="12px"><a href="#"
-                    class="srv">CONSULTORÍA INTEGRAL</a></li>
-            <li class="menu-item si"><img src="indice.svg" class="color" alt="" srcset="" width="12px"><a href="#"
-                    class="srv">ASESORIA EN DESARROLLO TECNOLÓGICO</a></li>
-            <li class="menu-item si"><img src="indice.svg" class="color" alt="" srcset="" width="12px"><a href="#"
-                    class="srv">ACOMPAÑAMIENTO FINANCIERO Y BANCARIO</a></li>
-            <li class="menu-item si"><img src="indice.svg" class="color" alt="" srcset="" width="12px"><a href="#"
-                    class="srv">NETWORKING EMPRESARIAL</a></li>
+            <li class="menu-item si" (click)="pagina()"><img src="assets/indice.svg" class="color" alt="" width="12px"><a href="#" class="srv colorfuente">CAPACITACIÓN EMPRESARIAL</a></li>
+            <li class="menu-item si"><img src="assets/indice.svg" class="color" alt="" width="12px"><a href="#" class="srv">CONSULTORÍA INTEGRAL</a></li>
+            <li class="menu-item si"><img src="assets/indice.svg" class="color" alt="" width="12px"><a href="#" class="srv">ASESORÍA EN DESARROLLO TECNOLÓGICO</a></li>
+            <li class="menu-item si"><img src="assets/indice.svg" class="color" alt="" width="12px"><a href="#" class="srv">ACOMPAÑAMIENTO FINANCIERO Y BANCARIO</a></li>
+            <li class="menu-item si"><img src="assets/indice.svg" class="color" alt="" width="12px"><a href="#" class="srv">NETWORKING EMPRESARIAL</a></li>
         </ul>
     </div>
 </div>
