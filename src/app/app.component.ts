@@ -13,20 +13,22 @@ import { SegundavistaComponent } from "./components/segundavista/segundavista.co
 export class AppComponent {
   title = 'pr1jk';
   ngAfterViewInit() {
-    const sections = document.querySelectorAll('.section');
+    if (document != undefined) {
+      const sections = document.querySelectorAll('.section');
 
-    const observer = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-            observer.unobserve(entry.target); // Deja de observar una vez visible
-          }
-        });
-      },
-      { threshold: 0.1 } // Detecta cuando al menos el 10% del elemento es visible
-    );
+      const observer = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('revealed');
+              observer.unobserve(entry.target); // Deja de observar una vez visible
+            }
+          });
+        },
+        { threshold: 0.1 } // Detecta cuando al menos el 10% del elemento es visible
+      );
 
-    sections.forEach(section => observer.observe(section));
+      sections.forEach(section => observer.observe(section));
+    }
   }
 }

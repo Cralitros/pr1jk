@@ -186,6 +186,12 @@ img.imagen {
     height: 50px; /* Ajusta según tu diseño */
     
   }
+  .imagen-movil{
+    /*z-index: -1; /* Envía el div al fondo */
+    /*position: relative;*/
+    display: flex;
+    justify-content: flex-start; /* Asegura que permanezca en la parte inferior */
+  }
 }
 @media (min-width: 600px) {
   img.imagen {
