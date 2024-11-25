@@ -191,9 +191,13 @@ img.imagen {
     /*position: relative;*/
     display: flex;
     justify-content: flex-start; /* Asegura que permanezca en la parte inferior */
+    position: fixed;
+    top: 0;
+    left: 0;
   }
 }
 @media (min-width: 600px) {
+
   img.imagen {
     width: 160px;
   }

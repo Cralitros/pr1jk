@@ -1,35 +1,48 @@
 .container {
   position: fixed;
-  top: 0;
+  top: 90px;
   left: 0;
   width: 100vw;
   height: 100vh;
   background-size: cover; /* La imagen cubrirá toda el área del div */
   background-position: center; /* Centra la imagen */
   background-repeat: no-repeat; /* Evita que la imagen se repita */
-  z-index: -1; /* Envía el div al fondo */
 }
 
-.estrado {
-  z-index: -1; /* Envía el div al fondo */
-  position: fixed;
+.contenido {
   display: flex;
-  bottom: 0;
-  justify-content: center; /* Asegura que permanezca en la parte inferior */
-  align-items: center; /* Centra horizontalmente */
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Ajusta según tu diseño */
+  width: 100%;
+  height: 100%;
 }
-.cnt {
-  display: flex;
-  justify-content: center; /* Asegura que permanezca en la parte inferior */
-  align-items: center; /* Centra horizontalmente */
+
+.txdt {
+  margin-top: 20px;
+  text-align: center;
 }
 
 .titulo {
-    position: relative;
-    font-size: 5em !important; /* Fuerza la prioridad de este estilo */
-    font-weight: bolder;
-    color: #dd7b30; /* Opcional: establece un color para verificar que el estilo se aplica */
-    top: -300px;
+  font-size: 5em;
+  font-weight: bolder;
+  color: #dd7b30;
+  margin: 0;
+}
+
+.estrado {
+  position: fixed;
+  bottom: 0;
+  width: 100%; /* Asegura que ocupe todo el ancho */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra el contenido */
+  z-index: 1; /* Asegúrate de que sea visible */
+}
+
+.imgestr {
+  max-width: 100%; /* Asegura que la imagen no exceda el ancho */
+  height: auto;
 }
 
 @media (max-width: 600px) {
@@ -37,7 +50,7 @@
     display: block; /* Elimina el comportamiento flex de la clase .cnt */
   }
 
-  .txdt{
+  .txdt {
     text-align: center;
   }
   .titulo {
@@ -49,7 +62,7 @@
     z-index: -1; /* Envía el div al fondo */
     position: fixed;
     display: flex;
-    bottom: 40px;
+    bottom: 70px;
     justify-content: center; /* Asegura que permanezca en la parte inferior */
     align-items: center; /* Centra horizontalmente */
   }
@@ -57,4 +70,6 @@
     width: 70%; /* Disminuye el tamaño de la imagen */
     height: auto; /* Mantiene las proporciones */
   }
+ 
+
 }
