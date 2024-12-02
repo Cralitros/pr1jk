@@ -30,21 +30,21 @@ export class AnimacionComponent {
     const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
 
     // Crear un cubo
-    BABYLON.SceneLoader.Append(
-      'assets/',   // Ruta del archivo GLB
-      'cubo.glb', // Nombre del archivo GLB (debe estar en la carpeta assets)
+    BABYLON.SceneLoader.AppendAsync(
+      '/assets/models/',   // Ruta del archivo GLB
+      'cubo.gltf', // Nombre del archivo GLB (debe estar en la carpeta assets)
       scene,       // La escena a la que se añadirá el modelo
       function (scene) {
         // El modelo GLB se cargó correctamente
         console.log('GLB cargado correctamente');
         // Hacer algo adicional si es necesario, por ejemplo, ajustar la cámara para que se enfoque en el modelo.
       },
-      null,         // Puedes pasar una función de progreso si lo deseas
-      function (scene, message, exception) {
+      null       // Puedes pasar una función de progreso si lo deseas
+    /*  function (scene, message, exception) {
         // Manejar errores si la carga del GLB falla
         console.error(message, exception);
         alert('Error al cargar el modelo GLB');
-      }
+      }*/
     );
 
     // Ejecutar el bucle de renderizado
