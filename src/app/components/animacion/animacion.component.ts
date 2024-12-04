@@ -48,7 +48,7 @@ export class AnimacionComponent {
     let userInteraction = false; // Bandera para detectar interacción manual
     let resetTimeout: any; // Controlará el temporizador para alinear el cubo
 
-    BABYLON.SceneLoader.AppendAsync('/assets/models/', 'cubopro.glb', scene).then(() => {
+    BABYLON.SceneLoader.AppendAsync('/assets/', 'cubopro.glb', scene).then(() => {
       meshesToRotate = scene.meshes.filter(mesh => mesh.name !== "__root__");
 
       canvas.addEventListener("mousedown", (event) => {
