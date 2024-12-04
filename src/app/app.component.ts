@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { PresentacionComponent } from "./components/presentacion/presentacion.component";
 import { SegundavistaComponent } from "./components/segundavista/segundavista.component";
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +13,11 @@ import { SegundavistaComponent } from "./components/segundavista/segundavista.co
 })
 export class AppComponent {
   title = 'pr1jk';
-  ngAfterViewInit() {
-    if (document != undefined) {
+  constructor(@Inject(PLATFORM_ID) private platformId: object) {}
+
+  ngAfterViewInit(): void {
+    // Verificar si estamos en el navegador
+    if (isPlatformBrowser(this.platformId)) {
       const sections = document.querySelectorAll('.section');
 
       const observer = new IntersectionObserver(

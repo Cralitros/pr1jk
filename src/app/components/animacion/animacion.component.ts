@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import * as BABYLON from 'babylonjs';
-
+import * as GUI from "babylonjs-gui";
+import 'babylonjs-loaders';
 @Component({
   selector: 'app-animacion',
   standalone: true,
@@ -10,29 +11,226 @@ import * as BABYLON from 'babylonjs';
 })
 export class AnimacionComponent {
   @ViewChild('renderCanvas', { static: true }) renderCanvas!: ElementRef;
-
   ngOnInit(): void {
     const canvas = this.renderCanvas.nativeElement as HTMLCanvasElement;
 
-    // Comprobar si el navegador soporta WebGL
     if (!BABYLON.Engine.isSupported()) {
-      /*alert("WebGL no está soportado en este navegador. Actualiza o cambia de navegador.");*/
       return;
     }
 
+    const engine = new BABYLON.Engine(canvas, true);
+    const scene = new BABYLON.Scene(engine);
+    scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
+
+    const camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2.5, 5, BABYLON.Vector3.Zero(), scene);
+    camera.attachControl(canvas, false); // Deshabilita control automático de la cámara
+
+    // Deshabilitar el zoom
+    camera.lowerRadiusLimit = camera.radius; // Evita acercarse
+    camera.upperRadiusLimit = camera.radius; // Evita alejarse
+
+    const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+    light.intensity = 1;
+
+    let meshesToRotate: BABYLON.AbstractMesh[] = [];
+    let currentFaceIndex = 0;
+    const rotationSequence: BABYLON.Vector3[] = [
+      new BABYLON.Vector3(0, Math.PI / 2, 0), // Derecha
+      new BABYLON.Vector3(0, -Math.PI / 2, 0), // Izquierda
+      new BABYLON.Vector3(Math.PI / 2, 0, 0), // Inferior
+      new BABYLON.Vector3(-Math.PI / 2, 0, 0), // Superior
+      new BABYLON.Vector3(0, Math.PI, 0), // Atrás
+      new BABYLON.Vector3(0, 0, 0) // Delante
+    ];
+
+    let isDragging = false;
+    let lastMousePosition: { x: number; y: number } | null = null;
+    let userInteraction = false; // Bandera para detectar interacción manual
+    let resetTimeout: any; // Controlará el temporizador para alinear el cubo
+
+    BABYLON.SceneLoader.AppendAsync('/assets/models/', 'cubopro.glb', scene).then(() => {
+      meshesToRotate = scene.meshes.filter(mesh => mesh.name !== "__root__");
+
+      canvas.addEventListener("mousedown", (event) => {
+        isDragging = true;
+        lastMousePosition = { x: event.clientX, y: event.clientY };
+      });
+
+      canvas.addEventListener("mouseup", () => {
+        isDragging = false;
+        lastMousePosition = null;
+
+        // Reiniciar rotación automática tras interacción manual
+        clearTimeout(resetTimeout);
+        resetTimeout = setTimeout(() => {
+          userInteraction = false;
+          alignToNearestFace();
+        }, 2000); // 2 segundos de inactividad
+      });
+
+      canvas.addEventListener("mousemove", (event) => {
+        if (isDragging && lastMousePosition) {
+          const deltaX = event.clientX - lastMousePosition.x;
+          const deltaY = event.clientY - lastMousePosition.y;
+          lastMousePosition = { x: event.clientX, y: event.clientY };
+
+          userInteraction = true; // Marcamos que hay interacción manual
+
+          // Aplicar rotación al cubo
+          meshesToRotate.forEach(mesh => {
+            mesh.rotation.y += deltaX * 0.01; // Ajusta sensibilidad
+            mesh.rotation.x += deltaY * 0.01;
+          });
+        }
+      });
+
+      startRotationSequence();
+    });
+
+    function startRotationSequence(): void {
+      if (meshesToRotate.length === 0) return;
+
+      setInterval(() => {
+        if (!userInteraction) {
+          const targetRotation = rotationSequence[currentFaceIndex];
+
+          meshesToRotate.forEach(mesh => {
+            BABYLON.Animation.CreateAndStartAnimation(
+              "rotateMesh",
+              mesh,
+              "rotation",
+              30,
+              60,
+              mesh.rotation,
+              targetRotation,
+              BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT
+            );
+          });
+
+          currentFaceIndex = (currentFaceIndex + 1) % rotationSequence.length;
+        }
+      }, 8000); // Cambiar cara cada 10 segundos si no hay interacción del usuario
+    }
+
+    function alignToNearestFace(): void {
+      const currentRotation = meshesToRotate[0].rotation;
+      let closestFaceIndex = 0;
+      let closestDistance = Infinity;
+
+      rotationSequence.forEach((rotation, index) => {
+        const distance = BABYLON.Vector3.Distance(currentRotation, rotation);
+        if (distance < closestDistance) {
+          closestFaceIndex = index;
+          closestDistance = distance;
+        }
+      });
+
+      const targetRotation = rotationSequence[closestFaceIndex];
+      meshesToRotate.forEach(mesh => {
+        BABYLON.Animation.CreateAndStartAnimation(
+          "alignRotation",
+          mesh,
+          "rotation",
+          30,
+          60,
+          mesh.rotation,
+          targetRotation,
+          BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT
+        );
+      });
+
+      currentFaceIndex = closestFaceIndex; // Actualizamos la cara actual
+    }
+
+    engine.runRenderLoop(() => {
+      scene.render();
+    });
+
+    window.addEventListener("resize", () => {
+      engine.resize();
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+  /*ngOnInit(): void {
+    const canvas = this.renderCanvas.nativeElement as HTMLCanvasElement;
+ 
+    // Comprobar si el navegador soporta WebGL
+    if (!BABYLON.Engine.isSupported()) {
+      /*alert("WebGL no está soportado en este navegador. Actualiza o cambia de navegador.");*/
+  /*    return;
+    }
+ 
     // Inicializar el motor de Babylon.js
     const engine = new BABYLON.Engine(canvas, true);
     const scene = new BABYLON.Scene(engine);
-
+    scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
     // Cámara y luz
     const camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2.5, 5, BABYLON.Vector3.Zero(), scene);
+ 
+    // Deshabilitar el zoom
+    camera.lowerRadiusLimit = camera.radius; // Evita acercarse
+    camera.upperRadiusLimit = camera.radius; // Evita alejarse
+ 
+    camera.lowerAlphaLimit = null; // Sin límite horizontal (rotación libre)
+    camera.upperAlphaLimit = null;
+ 
+    camera.lowerBetaLimit = null;       // Límite inferior para no ver desde abajo del objeto
+    camera.upperBetaLimit = null; // Límite superior para no ver desde arriba del objeto
+ 
     camera.attachControl(canvas, true);
     const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
-
+    light.intensity = 1; // Aumenta la intensidad
+ 
+    // Añadir luz
+   // const bottomLight = new BABYLON.DirectionalLight("bottomLight", new BABYLON.Vector3(0, -1, 0), scene);
+   // bottomLight.intensity = 0.5; // Ajusta la intensidad según sea necesario
+ 
+    // Crear una luz direccional que ilumine la cara frontal
+    const directionalLight = new BABYLON.DirectionalLight("directionalLight", new BABYLON.Vector3(0, 0, -1), scene);
+    directionalLight.position = new BABYLON.Vector3(0, 1, 2); // Posicionar la luz para que ilumine la cara frontal
+    directionalLight.intensity = 0.3;  // Ajustar la intensidad según sea necesario
+ 
+ 
+    // Luz hemisférica para iluminación global más uniforme
+    const hemisphericLight = new BABYLON.HemisphericLight("hemisphericLight", new BABYLON.Vector3(0, 1, 0), scene);
+    hemisphericLight.intensity = 0.8; // Ajusta la intensidad según sea necesario
+    hemisphericLight.specular = new BABYLON.Color3(1, 1, 1); // Especular para brillos
+    hemisphericLight.diffuse = new BABYLON.Color3(1, 1, 1);  // Luz difusa
+ 
+    // Luz direccional superior para iluminar de arriba hacia abajo
+    const topLight = new BABYLON.DirectionalLight("topLight", new BABYLON.Vector3(0, -1, 0), scene);
+    topLight.position = new BABYLON.Vector3(0, 5, 0); // Coloca la luz por encima del cubo
+    topLight.intensity = 1; // Aumenta la intensidad
+ 
+    // Luz direccional inferior para iluminar de abajo hacia arriba
+    const bottomLight = new BABYLON.DirectionalLight("bottomLight", new BABYLON.Vector3(0, -1, 0), scene);
+    bottomLight.position = new BABYLON.Vector3(0, -5, 1); // Coloca la luz por debajo del cubo
+    bottomLight.intensity = 3; // Ajusta la intensidad según sea necesario
+ 
+    // Luz frontal para iluminar la cara visible
+    const frontLight = new BABYLON.DirectionalLight("frontLight", new BABYLON.Vector3(0, 0, -1), scene);
+    frontLight.position = new BABYLON.Vector3(0, 1, 2); // Posicionar frente al cubo
+    frontLight.intensity = 0.5;
+ 
+    // Luz trasera para iluminar la cara opuesta
+    const backLight = new BABYLON.DirectionalLight("backLight", new BABYLON.Vector3(0, 0, 1), scene);
+    backLight.position = new BABYLON.Vector3(0, 1, -2);
+    backLight.intensity = 0.5;
+ 
+ 
     // Crear un cubo
     BABYLON.SceneLoader.AppendAsync(
       '/assets/models/',   // Ruta del archivo GLB
-      'cubo.gltf', // Nombre del archivo GLB (debe estar en la carpeta assets)
+      'cuboilum.glb', // Nombre del archivo GLB (debe estar en la carpeta assets)
       scene,       // La escena a la que se añadirá el modelo
       function (scene) {
         // El modelo GLB se cargó correctamente
@@ -40,241 +238,70 @@ export class AnimacionComponent {
         // Hacer algo adicional si es necesario, por ejemplo, ajustar la cámara para que se enfoque en el modelo.
       },
       null       // Puedes pasar una función de progreso si lo deseas
-    /*  function (scene, message, exception) {
-        // Manejar errores si la carga del GLB falla
-        console.error(message, exception);
-        alert('Error al cargar el modelo GLB');
-      }*/
     );
-
+ 
+    // Rotación automática de la cámara
+    let currentAlpha = 0; // Rotación horizontal
+    let currentBeta = Math.PI / 2.5; // Rotación vertical (inicial)
+    let step = 0; // Contador de pasos para alternar entre rotaciones
+ 
+    setInterval(() => {
+      if (step % 4 === 0) {
+        // Vista superior
+        currentBeta = 0.1; // Un poco por encima del eje para no chocar con el modelo
+      } else if (step % 4 === 1) {
+        // Vista horizontal rotando 90°
+        currentBeta = Math.PI / 2.5; // Vista media
+        currentAlpha += Math.PI / 2; // Gira horizontalmente 90°
+      } else if (step % 4 === 2) {
+        // Vista inferior
+        currentBeta = Math.PI - 0.1; // Un poco por debajo del eje
+      } else if (step % 4 === 3) {
+        // Vista horizontal rotando 90°
+        currentBeta = Math.PI / 2.5; // Regresa a la vista media
+        currentAlpha += Math.PI / 2; // Gira horizontalmente 90°
+      }
+ 
+      // Normalizar alpha a un rango de 0 - 2π
+      if (currentAlpha >= 2 * Math.PI) {
+        currentAlpha -= 2 * Math.PI;
+      }
+ 
+      // Animar alpha y beta
+      BABYLON.Animation.CreateAndStartAnimation(
+        "rotateCameraAlpha",
+        camera,
+        "alpha",
+        30,
+        60,
+        camera.alpha,
+        currentAlpha,
+        BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT
+      );
+ 
+      BABYLON.Animation.CreateAndStartAnimation(
+        "rotateCameraBeta",
+        camera,
+        "beta",
+        30,
+        60,
+        camera.beta,
+        currentBeta,
+        BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT
+      );
+ 
+      step++; // Incrementar paso
+    }, 5000);
+ 
     // Ejecutar el bucle de renderizado
     engine.runRenderLoop(() => {
       scene.render();
     });
-
+ 
     // Ajustar el tamaño del lienzo cuando la ventana cambia de tamaño
     window.addEventListener("resize", () => {
       engine.resize();
     });
-  }
-  /*ngOnInit(): void {
-    const canvas = this.renderCanvas.nativeElement as HTMLCanvasElement;
-
-    // Crear un engine y una escena
-    const engine = new BABYLON.Engine(canvas, true);
-    const scene = new BABYLON.Scene(engine);
-
-    // Hacer el fondo transparente
-    scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
-
-    // Crear una cámara ArcRotateCamera
-    const camera = new BABYLON.ArcRotateCamera(
-      "Camera",
-      Math.PI / 2, // Ángulo inicial horizontal
-      Math.PI / 2, // Ángulo inicial vertical
-      5,          // Distancia desde el centro
-      BABYLON.Vector3.Zero(), // Objetivo de la cámara
-      scene
-    );
-
-    camera.attachControl(canvas, true); // Permitir interacción con el mouse
-    camera.fov = 0.5;
-
-    // Deshabilitar el zoom
-    camera.lowerRadiusLimit = camera.radius; // Evita acercarse
-    camera.upperRadiusLimit = camera.radius; // Evita alejarse
-
-    // Limitar la rotación vertical (opcional)
-    /*camera.lowerBetaLimit = Math.PI / 3; // Límite inferior
-    camera.upperBetaLimit = Math.PI / 3; // Límite superior*/
-
-  /*  camera.lowerAlphaLimit = null; // Sin límite horizontal (rotación libre)
-    camera.upperAlphaLimit = null;
-
-    camera.lowerBetaLimit = null;       // Límite inferior para no ver desde abajo del objeto
-    camera.upperBetaLimit = null; // Límite superior para no ver desde arriba del objeto
-
-    // Bloquear el botón derecho del mouse
-    canvas.addEventListener("contextmenu", (event) => {
-      event.preventDefault(); // Bloquea el menú contextual del botón derecho
-    });
-
-    // Añadir luz
-    const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
-
-    // Crear una luz direccional que ilumine la cara frontal
-    const directionalLight = new BABYLON.DirectionalLight("directionalLight", new BABYLON.Vector3(0, 0, -1), scene);
-    directionalLight.position = new BABYLON.Vector3(0, 1, 2); // Posicionar la luz para que ilumine la cara frontal
-    directionalLight.intensity = 0.3;  // Ajustar la intensidad según sea necesario
-
-
-    // Crear una figura (cubo)
-    const box = BABYLON.MeshBuilder.CreateBox("box", { size: 1.5 }, scene);
-
-    /* const faceMaterial = new BABYLON.StandardMaterial("faceMaterial", scene);
-     faceMaterial.diffuseColor = BABYLON.Color3.FromHexString("#bbd7c8");*/
-  // Crear materiales para cada cara
-  /*    const frontMaterial = new BABYLON.StandardMaterial("frontMaterial", scene);
-      const backMaterial = new BABYLON.StandardMaterial("backMaterial", scene);
-      const topMaterial = new BABYLON.StandardMaterial("topMaterial", scene);
-      const bottomMaterial = new BABYLON.StandardMaterial("bottomMaterial", scene);
-      const rightMaterial = new BABYLON.StandardMaterial("rightMaterial", scene);
-      const leftMaterial = new BABYLON.StandardMaterial("leftMaterial", scene);
-  
-  
-  
-  
-  
-      // Asignar texturas a cada material (sustituye las URLs por las de tus imágenes)
-      //frontMaterial.diffuseTexture = new BABYLON.Texture("/assets/engranes.png", scene); // Frontal
-      const frmt = new BABYLON.Texture("/assets/engranes3.png", scene);
-      frontMaterial.diffuseTexture = frmt;
-  
-      backMaterial.diffuseTexture = new BABYLON.Texture("/assets/engranes3.png", scene);   // Posterior
-      topMaterial.diffuseTexture = new BABYLON.Texture("/assets/engranes3png", scene);    // Superior
-      bottomMaterial.diffuseTexture = new BABYLON.Texture("/assets/engranes3.png", scene); // Inferior
-      rightMaterial.diffuseTexture = new BABYLON.Texture("/assets/engranes3.png", scene);  // Derecha
-      leftMaterial.diffuseTexture = new BABYLON.Texture("/assets/engranes3.png", scene);   // Izquierda
-  
-      //color de fondo para cada cara
-      frontMaterial.diffuseColor = BABYLON.Color3.FromHexString("#bbd7c8");
-      backMaterial.diffuseColor = BABYLON.Color3.FromHexString("#bbd7c8");
-      topMaterial.diffuseColor = BABYLON.Color3.FromHexString("#bbd7c8");
-      bottomMaterial.diffuseColor = BABYLON.Color3.FromHexString("#bbd7c8");
-      rightMaterial.diffuseColor = BABYLON.Color3.FromHexString("#bbd7c8");
-      leftMaterial.diffuseColor = BABYLON.Color3.FromHexString("#bbd7c8");
-  
-  
-      // MultiMaterial para asignar un material a cada cara
-      const multiMaterial = new BABYLON.MultiMaterial("multi", scene);
-      multiMaterial.subMaterials.push(frontMaterial);
-      multiMaterial.subMaterials.push(backMaterial);
-      multiMaterial.subMaterials.push(topMaterial);
-      multiMaterial.subMaterials.push(bottomMaterial);
-      multiMaterial.subMaterials.push(rightMaterial);
-      multiMaterial.subMaterials.push(leftMaterial);
-  
-      // Asignar multi-material al cubo
-      box.subMeshes = [];
-      const verticesCount = box.getTotalVertices();
-  
-      // Dividir el cubo en 6 caras
-      box.subMeshes.push(new BABYLON.SubMesh(0, 0, verticesCount, 0, 6, box)); // Cara frontal
-      box.subMeshes.push(new BABYLON.SubMesh(1, 0, verticesCount, 6, 6, box)); // Cara trasera
-      box.subMeshes.push(new BABYLON.SubMesh(2, 0, verticesCount, 12, 6, box)); // Cara superior
-      box.subMeshes.push(new BABYLON.SubMesh(3, 0, verticesCount, 18, 6, box)); // Cara inferior
-      box.subMeshes.push(new BABYLON.SubMesh(4, 0, verticesCount, 24, 6, box)); // Cara derecha
-      box.subMeshes.push(new BABYLON.SubMesh(5, 0, verticesCount, 30, 6, box)); // Cara izquierda
-  
-  
-      // Asignar el MultiMaterial al cubo
-  
-  
-  
-      // Crear material para las caras con color #e4baba
-      /*const faceMaterial = new BABYLON.StandardMaterial("faceMaterial", scene);
-      faceMaterial.diffuseColor = BABYLON.Color3.FromHexString("#bbd7c8");*/
-
-  /*   box.material = multiMaterial;
-     // Crear un contorno para los bordes del cubo
-     const highlightLayer = new BABYLON.HighlightLayer("highlightLayer", scene);
- 
-     // Color del borde
-     const borderColor = BABYLON.Color3.FromHexString("#fce2a6");
- 
-     // Resaltar todos los bordes del cubo con el color especificado
-     highlightLayer.addMesh(box, borderColor);
- 
-     // Secuencia de rotaciones para cada cara
-     const rotations = [
-       { x: 0, y: 0, z: 0 },                // Frontal
-       { x: 0, y: Math.PI, z: 0 },          // Posterior
-       { x: -Math.PI / 2, y: 0, z: 0 },     // Superior
-       { x: Math.PI / 2, y: 0, z: 0 },      // Inferior
-       { x: 0, y: Math.PI / 2, z: 0 },      // Derecha
-       { x: 0, y: -Math.PI / 2, z: 0 },     // Izquierda
-     ];
- 
-     // Índice actual en la secuencia
-     let currentIndex = 0;
- 
-     // Función para animar la rotación del cubo
-     const animateToRotation = (targetRotation: { x: number; y: number; z: number }) => {
-       const animationX = new BABYLON.Animation(
-         "rotationX",
-         "rotation.x",
-         60,
-         BABYLON.Animation.ANIMATIONTYPE_FLOAT,
-         BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT
-       );
- 
-       const animationY = new BABYLON.Animation(
-         "rotationY",
-         "rotation.y",
-         60,
-         BABYLON.Animation.ANIMATIONTYPE_FLOAT,
-         BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT
-       );
- 
-       const animationZ = new BABYLON.Animation(
-         "rotationZ",
-         "rotation.z",
-         60,
-         BABYLON.Animation.ANIMATIONTYPE_FLOAT,
-         BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT
-       );
- 
-       const keysX = [
-         { frame: 0, value: box.rotation.x },
-         { frame: 60, value: targetRotation.x },
-       ];
-       const keysY = [
-         { frame: 0, value: box.rotation.y },
-         { frame: 60, value: targetRotation.y },
-       ];
-       const keysZ = [
-         { frame: 0, value: box.rotation.z },
-         { frame: 60, value: targetRotation.z },
-       ];
- 
-       animationX.setKeys(keysX);
-       animationY.setKeys(keysY);
-       animationZ.setKeys(keysZ);
- 
-       box.animations = [animationX, animationY, animationZ];
-       scene.beginAnimation(box, 0, 60, false);
-     };
- 
-     // Función para avanzar a la siguiente cara
-     const rotateToNextFace = () => {
-       currentIndex = (currentIndex + 1) % rotations.length; // Avanza al siguiente índice
-       animateToRotation(rotations[currentIndex]);
-     };
- 
-     // Mostrar la primera cara durante 4 segundos, luego comenzar las rotaciones
-     setTimeout(() => {
-       setInterval(() => {
-         rotateToNextFace();
-       }, 2000); // Rotar cada 2 segundos
-     }, 4000); // Esperar 4 segundos iniciales
- 
-     // Render loop
-     engine.runRenderLoop(() => {
-       /*camera.alpha += alphaSpeed; // Gira horizontalmente (eje Y)
-       camera.beta += betaSpeed;  // Gira verticalmente (eje X)
- 
-       // Invertir la dirección de beta para que no pase más allá de los límites
-       if (camera.beta <= 0 || camera.beta >= Math.PI) {
-         betaSpeed *= -1; // Cambia de dirección
-       }*/
-  /*    scene.render();
-    });
-
-    // Ajustar tamaño al cambiar la ventana
-    window.addEventListener("resize", () => {
-      engine.resize();
-    });
   }*/
-
 
 }

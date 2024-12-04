@@ -8,6 +8,16 @@
         <div>
             <app-animacion></app-animacion>
         </div>
+        <div>
+            <div class="slider">
+                <p 
+                    [ngClass]="currentAnimation" 
+                    (animationend)="onAnimationEnd()" 
+                    [innerHTML]="itemSeleccionado" >
+                    
+                </p>
+            </div>
+        </div>
         <div class="estrado">
             <img class="imgestr" src="assets/estrado.png" alt="">
         </div>
