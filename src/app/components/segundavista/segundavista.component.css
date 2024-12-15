@@ -41,8 +41,22 @@
 }
 
 .imgestr {
-  max-width: 100%; /* Asegura que la imagen no exceda el ancho */
-  height: auto;
+  width: 800px; /* Asegura que la imagen no exceda el ancho */
+  height: 180px;
+}
+
+.slider{
+  position: relative;
+  width: 600px;
+  font-size: 50px;
+  z-index: 1000;
+  bottom: 60px;
+  color: #d62e60;
+  text-align: center;
+  /*border: 2px solid blue;*/
+  text-shadow:  4px 7px 3px rgb(235 218 218);
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: rgb(55 14 76);
 }
 
 @media (max-width: 600px) {
@@ -71,5 +85,10 @@
     height: auto; /* Mantiene las proporciones */
   }
  
+  .slider {
+    width: 350px;
+    font-size: 2em;
+    bottom: 90px;
+  }
 
 }

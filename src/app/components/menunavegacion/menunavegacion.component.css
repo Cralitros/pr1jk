@@ -170,6 +170,7 @@ img.imagen {
   .icono {
     padding: 10px 2px !important; 
   }
+
   .icsn {
     display: flex; /* or inline-flex */
     flex-direction: row;
@@ -180,7 +181,7 @@ img.imagen {
     font-weight: bolder;
     margin: 0; /* Elimina margen */
     padding: 0; /* Elimina relleno */
-    display: inline-block; /* Permite manipular ancho y alto */
+   /* display: inline-block; /* Permite manipular ancho y alto */
     text-align: center;    /* Alinea el texto horizontalmente */
     
     height: 50px; /* Ajusta según tu diseño */

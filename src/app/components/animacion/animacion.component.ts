@@ -13,25 +13,25 @@ export class AnimacionComponent {
   @ViewChild('renderCanvas', { static: true }) renderCanvas!: ElementRef;
   ngOnInit(): void {
     const canvas = this.renderCanvas.nativeElement as HTMLCanvasElement;
-
+  
     if (!BABYLON.Engine.isSupported()) {
       return;
     }
-
+  
     const engine = new BABYLON.Engine(canvas, true);
     const scene = new BABYLON.Scene(engine);
     scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
-
+  
     const camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2.5, 5, BABYLON.Vector3.Zero(), scene);
     camera.attachControl(canvas, false); // Deshabilita control automático de la cámara
-
+  
     // Deshabilitar el zoom
     camera.lowerRadiusLimit = camera.radius; // Evita acercarse
     camera.upperRadiusLimit = camera.radius; // Evita alejarse
-
+  
     const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
     light.intensity = 1;
-
+  
     let meshesToRotate: BABYLON.AbstractMesh[] = [];
     let currentFaceIndex = 0;
     const rotationSequence: BABYLON.Vector3[] = [
@@ -42,40 +42,42 @@ export class AnimacionComponent {
       new BABYLON.Vector3(0, Math.PI, 0), // Atrás
       new BABYLON.Vector3(0, 0, 0) // Delante
     ];
-
+  
     let isDragging = false;
     let lastMousePosition: { x: number; y: number } | null = null;
     let userInteraction = false; // Bandera para detectar interacción manual
     let resetTimeout: any; // Controlará el temporizador para alinear el cubo
-
-    BABYLON.SceneLoader.AppendAsync('/assets/', 'cubopro.glb', scene).then(() => {
+  
+    BABYLON.SceneLoader.AppendAsync('./assets/models/', 'cubodblanco.glb', scene).then(() => {
       meshesToRotate = scene.meshes.filter(mesh => mesh.name !== "__root__");
-
+  
       canvas.addEventListener("mousedown", (event) => {
         isDragging = true;
         lastMousePosition = { x: event.clientX, y: event.clientY };
       });
-
+  
       canvas.addEventListener("mouseup", () => {
         isDragging = false;
         lastMousePosition = null;
-
+  
+        // Detectar la cara más cercana y alinear el cubo
+        alignToNearestFace();
+  
         // Reiniciar rotación automática tras interacción manual
         clearTimeout(resetTimeout);
         resetTimeout = setTimeout(() => {
           userInteraction = false;
-          alignToNearestFace();
         }, 2000); // 2 segundos de inactividad
       });
-
+  
       canvas.addEventListener("mousemove", (event) => {
         if (isDragging && lastMousePosition) {
           const deltaX = event.clientX - lastMousePosition.x;
           const deltaY = event.clientY - lastMousePosition.y;
           lastMousePosition = { x: event.clientX, y: event.clientY };
-
+  
           userInteraction = true; // Marcamos que hay interacción manual
-
+  
           // Aplicar rotación al cubo
           meshesToRotate.forEach(mesh => {
             mesh.rotation.y += deltaX * 0.01; // Ajusta sensibilidad
@@ -83,17 +85,17 @@ export class AnimacionComponent {
           });
         }
       });
-
+  
       startRotationSequence();
     });
-
+  
     function startRotationSequence(): void {
       if (meshesToRotate.length === 0) return;
-
+  
       setInterval(() => {
         if (!userInteraction) {
           const targetRotation = rotationSequence[currentFaceIndex];
-
+  
           meshesToRotate.forEach(mesh => {
             BABYLON.Animation.CreateAndStartAnimation(
               "rotateMesh",
@@ -106,17 +108,17 @@ export class AnimacionComponent {
               BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT
             );
           });
-
+  
           currentFaceIndex = (currentFaceIndex + 1) % rotationSequence.length;
         }
-      }, 8000); // Cambiar cara cada 10 segundos si no hay interacción del usuario
+      }, 8000); // Cambiar cara cada 8 segundos si no hay interacción del usuario
     }
-
+  
     function alignToNearestFace(): void {
       const currentRotation = meshesToRotate[0].rotation;
       let closestFaceIndex = 0;
       let closestDistance = Infinity;
-
+  
       rotationSequence.forEach((rotation, index) => {
         const distance = BABYLON.Vector3.Distance(currentRotation, rotation);
         if (distance < closestDistance) {
@@ -124,7 +126,7 @@ export class AnimacionComponent {
           closestDistance = distance;
         }
       });
-
+  
       const targetRotation = rotationSequence[closestFaceIndex];
       meshesToRotate.forEach(mesh => {
         BABYLON.Animation.CreateAndStartAnimation(
@@ -138,18 +140,19 @@ export class AnimacionComponent {
           BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT
         );
       });
-
+  
       currentFaceIndex = closestFaceIndex; // Actualizamos la cara actual
     }
-
+  
     engine.runRenderLoop(() => {
       scene.render();
     });
-
+  
     window.addEventListener("resize", () => {
       engine.resize();
     });
   }
+  
 
 
 
