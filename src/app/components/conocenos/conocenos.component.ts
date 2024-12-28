@@ -15,6 +15,13 @@ export class ConocenosComponent {
   @ViewChild('objetivo') objetivo!: ElementRef;
   isVisible = false;
   private observer!: IntersectionObserver;
+  mostrarTarjeta: boolean = false;
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.mostrarTarjeta = true; // Activa la animación después de 1 segundo
+    }, 1000);
+  }
 
   ngAfterViewInit() {
     this.initObserver();

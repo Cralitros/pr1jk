@@ -20,6 +20,7 @@ export class AppComponent {
     // Verificar si estamos en el navegador
     if (isPlatformBrowser(this.platformId)) {
       const sections = document.querySelectorAll('.section');
+      const mision = document.querySelectorAll('.mision');
 
       const observer = new IntersectionObserver(
         (entries, observer) => {
@@ -34,6 +35,7 @@ export class AppComponent {
       );
 
       sections.forEach(section => observer.observe(section));
+      mision.forEach(section => observer.observe(section));
     }
   }
 }

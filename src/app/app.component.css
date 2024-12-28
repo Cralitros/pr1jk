@@ -24,8 +24,22 @@ html {
   transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Transición más suave */
   scroll-snap-align: start; /* Alinea cada sección al inicio del viewport */
 }
-
+.mision{
+  height: 100vh; /* Cada sección ocupa el 100% de la altura de la pantalla */
+  display: flex; /* Centrar contenido */
+  
+  align-items: center;
+  
+  transform: translateY(50px); /* Aparece con animación desde abajo */
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Transición más suave */
+  scroll-snap-align: start; /* Alinea cada sección al inicio del viewport */
+}
 .section.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mision.revealed {
   opacity: 1;
   transform: translateY(0);
 }
@@ -37,7 +51,9 @@ html {
 .section2 {
   background-color: #fbfff0;
 }
-
+.mision{
+  background-color: #fbfff0;
+}
 .section3 {
   background-color: #fbfff0 ;
 }
