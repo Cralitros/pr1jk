@@ -1,22 +1,17 @@
 <app-menunavegacion></app-menunavegacion>
-<div >
-  <div id="objetivo" #objetivo>
-
-    <div class="tarjeta mision" [class.visible]="isVisible"[ngClass]="{'visible': mostrarTarjeta}">
-      <h2>MISIÓN</h2>
-      <p>
-        Capacitar a las pequeñas y medianas empresas mediante soluciones prácticas
-        y asesoría personalizada, impulsando su potencial y fomentando una mayor
-        competitividad en el mercado.
-      </p>
-    </div>
-    <div class="tarjeta vision" [class.visible]="isVisible" [ngClass]="{'visible': mostrarTarjeta}">
-      <h2>VISIÓN</h2>
-      <p>
-        Ser la referencia líder en el desarrollo empresarial, generando valor
-        sostenible y posicionando a nuestros clientes como actores clave en su
-        industria.
-      </p>
-    </div>
+<div class="contenedor">
+  <div class="menui">
+    <ul class="listaui">
+      <li 
+        class="lista" 
+        *ngFor="let item of items; let i = index"
+        [ngClass]="{'active': selectedItem === i}"
+        (click)="selectItem(i)">
+        {{ item }}
+      </li>
+    </ul> 
+  </div>
+  <div class="contenido">
+    <p>{{elemento()}}</p>
   </div>
 </div>

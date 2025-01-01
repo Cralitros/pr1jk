@@ -12,43 +12,25 @@ import { MenunavegacionComponent } from "../menunavegacion/menunavegacion.compon
 
 })
 export class ConocenosComponent {
-  @ViewChild('objetivo') objetivo!: ElementRef;
-  isVisible = false;
-  private observer!: IntersectionObserver;
-  mostrarTarjeta: boolean = false;
+  items = ['NOSOTROS', 'MISIÓN', 'VISIÓN', 'VALORES', 'EQUIPO'];
+  selectedItem?: number | null = null;
+
+  selectItem(index: number): void {
+    this.selectedItem = index;
+
+    console.log(this.selectedItem);
+    
+  }
+  elemento(){
+    return this.items[this.selectedItem!];
+  }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.mostrarTarjeta = true; // Activa la animación después de 1 segundo
-    }, 1000);
+
   }
 
-  ngAfterViewInit() {
-    this.initObserver();
-  }
 
-  ngOnDestroy() {
-    if (this.observer) {
-      this.observer.disconnect();
-    }
-  }
 
-  private initObserver() {
-    this.observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            this.isVisible = true; // Mostrar la tarjeta
-          } else {
-            this.isVisible = false; // Ocultar la tarjeta
-          }
-        });
-      },
-      { threshold: 0.1 } // Detecta cuando el contenedor es visible al menos en un 10%
-    );
 
-    if (this.objetivo && this.objetivo.nativeElement) {
-      this.observer.observe(this.objetivo.nativeElement);
-    }
-  }
+
 }

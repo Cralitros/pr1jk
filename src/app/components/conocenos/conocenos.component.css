@@ -1,58 +1,54 @@
-body {
+.contenedor{
+  display: flex;
+  flex-direction: row;
+}
+.contenido{
+  margin-left: 260px;
+}
+ul {
+  list-style: none;
+  padding: 0;
   margin: 0;
-  font-family: Arial, sans-serif;
-  overflow-x: hidden; /* Evitar barras de desplazamiento horizontal */
+  display: flex;
+  flex-direction: column; /* Configura los elementos en columna */
+  align-items: flex-start; /* Alinea los elementos al inicio (izquierda) */
 }
 
-#contenedor {
-  position: relative;
-  height: 100vh;
-}
-
-#objetivo {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.tarjeta {
-  position: fixed; /* Tarjeta fija para animación */
-  top: 50%;
-  left: -300px; /* Comienza oculta fuera del borde izquierdo */
-  transform: translateY(-50%);
-  background-color: #f9e7be61;
-  border: 1px solid #dd7b30;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 16px;
-  width: 500px;
-  opacity: 0; /* Oculta visualmente */
-  transition: transform 1s ease, left 1s ease, opacity 1s ease;
-}
-.tarjeta.mision{
-  transform: translateY(-100%);
-  transition: transform 4s ease, left 4s ease, opacity 4s ease;
-}
-.tarjeta.vision{
-  transform: translateY(10%);
-  transition: transform 2s ease, left 2s ease, opacity 2s ease;
-}
-
-.tarjeta.mision:hover{
-  scale: 1.5;
-  transform: translateY(-40%), translateX(-100%);
-}
-
-
-.tarjeta.visible {
-  left: 10px; /* Aparece al costado izquierdo */
-  opacity: 1; /* Se hace visible */
-}
-
-h2{
+.lista {
+  font-size: 45px;
   color: #dd7b30;
+  margin: 30px;
+  transition: transform 0.3s, color 0.3s; /* Animaciones suaves para transformaciones y color */
+  transform-origin: left center; /* Escala desde la izquierda */
+  display: inline-block; /* Se adapta al tamaño del texto */
+  position: relative; /* Necesario para el pseudo-elemento */
+  
 }
-p {
-  color: #264a64;
+.active{
+  color: #e7442f;
+  
+  background-color: #e7c4bfc5; /* Color del subrayado */
+  
+}
+
+.lista::after {
+  content: '';
+  position: absolute;
+  bottom: -5px; /* Coloca la línea ligeramente por debajo del texto */
+  left: 0;
+  width: 0; /* Inicialmente el subrayado es invisible */
+  height: 3px; /* Grosor del subrayado */
+  background-color: #641308; /* Color del subrayado */
+  transition: width 1s; /* Transición suave para el subrayado */
+}
+
+.lista:hover {
+  color: #e7442f; /* Cambia el color del texto al pasar el mouse */
+  cursor: pointer;
+  transform: scale(2); /* Agranda el elemento */
+}
+
+.lista:hover::after {
+  width: 100%; /* Hace que el subrayado crezca al 100% del ancho del texto */
+  
 }
