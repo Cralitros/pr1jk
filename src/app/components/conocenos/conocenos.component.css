@@ -52,3 +52,58 @@ ul {
   width: 100%; /* Hace que el subrayado crezca al 100% del ancho del texto */
   
 }
+
+
+.texto-mosaico {
+  width: 100%;
+  height: 100px; /* Ajusta la altura según necesites */
+  overflow: hidden; /* Oculta los textos fuera del contenedor */
+  position: relative;
+  background-color: transparent; /* Fondo transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.texto-mosaico span {
+  position: absolute;
+  white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+  font-weight: bold;
+  opacity: 0.8;
+  animation: mover 15s linear infinite; /* Movimiento infinito */
+}
+
+@keyframes mover {
+  from {
+    transform: translateX(100%); /* Comienza fuera del contenedor (derecha) */
+  }
+  to {
+    transform: translateX(-100%); /* Termina fuera del contenedor (izquierda) */
+  }
+}
+
+/* Variaciones de tamaño y posición */
+.texto-mosaico span:nth-child(1) {
+  font-size: 2rem;
+  top: 10%;
+  animation-duration: 12s; /* Diferente velocidad */
+  color: rgba(255, 118, 117, 0.8);
+}
+.texto-mosaico span:nth-child(2) {
+  font-size: 3rem;
+  top: 40%;
+  animation-duration: 15s;
+  color: rgba(85, 239, 196, 0.8);
+}
+.texto-mosaico span:nth-child(3) {
+  font-size: 1.5rem;
+  top: 70%;
+  animation-duration: 8s;
+  color: rgba(253, 121, 168, 0.8);
+}
+.texto-mosaico span:nth-child(4) {
+  font-size: 4rem;
+  top: 20%;
+  animation-duration: 18s;
+  color: rgba(255, 234, 167, 0.8);
+}
