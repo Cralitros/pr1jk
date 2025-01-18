@@ -11,14 +11,24 @@
       </li>
     </ul> 
   </div>
-  <div class="texto-mosaico">
+  
+  <!-- Contenedor para posicionar la sección -->
+  <div style="position: relative; width: 100%;">
     
-    <span>{{elemento()}}</span>
-    <span>{{elemento()}}</span>
-    <span>{{elemento()}}</span>
-    <span>{{elemento()}}</span>
+    <div class="texto" [innerHTML]="contenidoD()"></div>
+    <div class="texto-mosaico">
+      <span>{{elemento()}}</span>
+      <span>{{elemento()}}</span>
+      <span>{{elemento()}}</span>
+      <span>{{elemento()}}</span>
+      <span>{{elemento()}}</span>
+      <span>{{elemento()}}</span>
+      <span>{{elemento()}}</span>
+      <span>{{elemento()}}</span>
+    </div>
   </div>
 </div>
+
 
 
 
