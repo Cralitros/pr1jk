@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Renderer2, ViewChild } from '@angular/core';
 import { debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
 import { MenunavegacionComponent } from "../menunavegacion/menunavegacion.component";
+import { WindowService } from '../../services/window.service';
 
 @Component({
   selector: 'app-conocenos',
@@ -41,12 +42,64 @@ export class ConocenosComponent {
   
 
 
+  //contenedor: HTMLElement | null = null;
+  @ViewChild('contenedor', { static: true }) contenedor!: ElementRef;
+  constructor(private renderer: Renderer2,
+    private windowService: WindowService,
+    private el: ElementRef) {}
+  ngOnInit() {
+
+  }
+
+  ngAfterViewInit(): void {
+    // Obtén referencia del contenedor
+    //this.contenedor = this.el.nativeElement.querySelector('.contenedor');
+    this.centrarDiv();
+  }
+  // Detecta cambio de tamaño de la ventana
+  @HostListener('window:resize', ['$event'])
+  onResize(): void {
+    this.centrarDiv();
+  }
+
+  // Calcula márgenes para centrar el div
+  centrarDiv(): void {
+    if (!this.contenedor) return;
+    const windowRef = this.windowService.nativeWindow;
+
+    if (!this.contenedor || !windowRef) {
+      console.error('El contenedor o el objeto window no están disponibles');
+      return;
+    }
+
+    const ventanaWidth = window.innerWidth;
+    const ventanaHeight = window.innerHeight;
+    const contenedorWidth = this.contenedor.nativeElement.offsetWidth;
+    const contenedorHeight = this.contenedor.nativeElement.offsetHeight;
+
+    const margenTop = (ventanaHeight - contenedorHeight) / 2;
+    const margenLeft = (ventanaWidth - contenedorWidth) / 2;
+
+   /* this.renderer.setStyle(
+      this.contenedor.nativeElement,
+      'margin-top',
+      `${margenTop}px`
+    );*/
+    this.renderer.setStyle(
+      this.contenedor.nativeElement,
+      'margin-left',
+      `${margenLeft}px`
+    );
+  }
 
   selectedItem?: any | null = null;
 
   selectItem(index: any): void {
     this.selectedItem = index;
     this.currentItem = 0;
+
+    console.log(this.selectedItem);
+    
 
   }
   elemento() {
@@ -57,9 +110,7 @@ export class ConocenosComponent {
     
     return this.selectedItem ? this.contenido[this.selectedItem] : [];
   }
-  ngOnInit() {
 
-  }
   currentItem: number = 0;
 
   // Devuelve el estilo de transformación para cada tarjeta

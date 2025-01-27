@@ -1,64 +1,25 @@
 <app-menunavegacion></app-menunavegacion>
-<div class="contenedor">
-  <div class="menui">
-    <ul class="listaui">
-      <li 
-        class="lista" 
-        *ngFor="let item of items; let i = index"
-        [ngClass]="{'active': selectedItem === i}"
-        (click)="selectItem(item)">
-        {{ item }}
-      </li>
-    </ul> 
-  </div>
-  
-  <!-- Contenedor para posicionar la sección -->
-  <div style="position: relative;">
-    <div class="carousel">
-      <div
-        class="carousel-item"
-        *ngFor="let item of this.contenidoD(); let i = index"
-        [ngClass]="{'focused': i === currentItem}"
-        [style.transform]="getTransform(i)"
-        [innerHTML]="item"
-      >
-        
-      </div>
+<div class="ctn">
+  <div #contenedor class="contenedor">
+    <div class="menui">
+      <ul class="listaui">
+        <li class="lista" *ngFor="let item of items; let i = index" [ngClass]="{'active': selectedItem == i}"
+          (click)="selectItem(item)">
+          <b>{{ item }}</b>
+        </li>
+      </ul>
     </div>
-    <button class="prev" (click)="prev()">Anterior</button>
-    <button class="next" (click)="next()">Siguiente</button>
-    
-    <!--<div class="texto" [innerHTML]="contenidoD()"></div>
-    <div class="texto-mosaico">
-      <span>{{elemento()}}</span>
-      <span>{{elemento()}}</span>
-      <span>{{elemento()}}</span>
-      <span>{{elemento()}}</span>
-      <span>{{elemento()}}</span>
-      <span>{{elemento()}}</span>
-      <span>{{elemento()}}</span>
-      <span>{{elemento()}}</span>
-    </div>-->
+
+    <!-- Contenedor para posicionar la sección -->
+    <div style="position: relative;">
+      <div class="carousel">
+        <div class="carousel-item" *ngFor="let item of this.contenidoD(); let i = index"
+          [ngClass]="{'focused': i === currentItem}" [style.transform]="getTransform(i)" [innerHTML]="item">
+
+        </div>
+      </div>
+      <button class="prev" (click)="prev()">Anterior</button>
+      <button class="next" (click)="next()">Siguiente</button>
+    </div>
   </div>
 </div>
-<!--<div class="carousel">
-  <div class="carousel-item" *ngFor="let item of items; let i = index" [ngClass]="{'focused': i === currentItem}">
-    {{ item }}
-  </div>
-</div>
-<button class="prev" (click)="prev1()">Anterior</button>
-<button class="next" (click)="next1()">Siguiente</button>
-
-<div class="carousel">
-  <div class="carousel-item active">Card 1: This is the main content visible.</div>
-  <div class="carousel-item">Card 2: This is partially visible.</div>
-  <div class="carousel-item">Card 3: This is partially visible.</div>
-</div>-->
-
-
-
-
-
-
-
-
