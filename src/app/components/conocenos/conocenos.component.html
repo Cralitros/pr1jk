@@ -3,8 +3,8 @@
   <div #contenedor class="contenedor">
     <div class="menui">
       <ul class="listaui">
-        <li class="lista" *ngFor="let item of items; let i = index" [ngClass]="{'active': selectedItem == i}"
-          (click)="selectItem(item)">
+        <li class="lista" *ngFor="let item of items; let i = index" [ngClass]="{'active': selectedIndex == i}"
+          (click)="selectItem(item,i)">
           <b>{{ item }}</b>
         </li>
       </ul>

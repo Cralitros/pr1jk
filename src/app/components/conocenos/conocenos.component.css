@@ -51,7 +51,7 @@ ul {
 }
 
 .lista.active {
-  color: #e7442f; /* Cambia el color del texto */
+  color: #cf4837; /* Cambia el color del texto */
   transform: scale(2); /* Mantiene el tamaño del texto */
 }
 
@@ -74,7 +74,7 @@ ul {
   height: 150px; /* Altura del carrusel */
   overflow: hidden;
   margin: 20px auto;
-  border: 1px solid #ddd;
+  /*border: 1px solid #ddd;*/
   background-color: #ffefef00;
 }
 

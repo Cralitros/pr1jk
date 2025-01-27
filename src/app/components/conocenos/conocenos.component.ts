@@ -16,27 +16,27 @@ export class ConocenosComponent {
   items = ['NOSOTROS', 'MISIÓN', 'VISIÓN', 'VALORES', 'EQUIPO'];
   contenido:any={
     "NOSOTROS": [
-      "<p>En <b>AVANZA</b>, creemos en el poder de las ideas, el trabajo en equipo y el compromiso con la excelencia.</p>",
-      "<p>Somos un grupo apasionado por los productos de calidad, enfocado en crear soluciones que marcan la diferencia.</p>",
-      "<p>Valoramos las relaciones basadas en la confianza, la transparencia y el respeto mutuo, y trabajamos día a día para superar las expectativas de quienes confían en nosotros.</p>",
+      "<p>En <b>AVANZA</b>, valoramos las ideas, el trabajo en equipo y el compromiso con la excelencia.</p>",
+      "<p>Somos un equipo apasionado por la calidad, enfocados en crear soluciones diferenciadoras.</p>",
+      "<p>Valoramos la confianza, el respeto y trabajamos para superar las expectativas de nuestros clientes.</p>",
       "<p>Aquí no solo hacemos las cosas bien, las hacemos con corazón.</p>"
     ],
     "MISIÓN": [
-      "<p>Ser una organización reconocida por su excelencia, innovación y compromiso, destacándonos como líderes a nivel nacion e internacional.</p>",
-      "<p>Aspiramos a ser una referencia en la creación de soluciones que transformen vidas, fomenten el desarrollo sostenible y generen un impacto positivo en la sociedad.</p>",
-      "<p>Trabajamos con pasión y determinación para construir un futuro en el que nuestros valores y logros sean el reflejo de un esfuerzo constante por mejorar el mundo que nos rodea.</p>"
+      "<p>Ser líderes reconocidos por nuestra excelencia, innovación y compromiso a nivel nacional e internacional.</p>",
+      "<p>Aspiramos a ser referencia en soluciones que transformen vidas y generen un impacto positivo.</p>",
+      "<p>Trabajamos con pasión y determinación para construir un futuro que refleje nuestros valores.</p>"
     ],
     "VISIÓN": [
-      "<p>Nos comprometemos a trabajar con pasión, innovación y responsabilidad, contribuyendo al crecimiento sostenible y al bienestar de nuestra comunidad.</p>",
-      "<p>Creemos en el impacto positivo de nuestro trabajo y en la importancia de hacerlo con integridad, siempre enfocados en superar las expectativas y construir un futuro mejor.</p>"
+      "<p>Nos comprometemos a trabajar con pasión, innovación y responsabilidad, fomentando el bienestar comunitario.</p>",
+      "<p>Creemos en el impacto positivo de nuestro trabajo, con integridad y enfocados en superar expectativas.</p>"
     ],
     "VALORES": [
-      "<p><b>Integridad</b>: Actuamos con honestidad y ética en todo lo que hacemos, respetando siempre nuestros compromisos.</p>",
-      "<p><b>Excelencia</b>: Nos esforzamos por alcanzar los más altos estándares de calidad en cada uno de nuestros proyectos.</p>",
-      "<p><b>Innovación</b>: Fomentamos la creatividad y el pensamiento disruptivo para ofrecer soluciones únicas y efectivas.</p>",
-      "<p><b>Responsabilidad</b>: Asumimos nuestro papel con compromiso, cuidando el impacto social y ambiental de nuestras acciones.</p>",
-      "<p><b>Trabajo en equipo</b>: Creemos en el poder de la colaboración y en la unión de talentos para alcanzar metas comunes.</p>",
-      "<p><b>Empatía</b>: Escuchamos y valoramos las necesidades de las personas, colocando el bienestar humano en el centro de nuestras decisiones.</p>"
+      "<p><b>Integridad</b>: Actuamos con honestidad y ética, respetando siempre nuestros compromisos.</p>",
+      "<p><b>Excelencia</b>: Buscamos los más altos estándares de calidad en cada proyecto.</p>",
+      "<p><b>Innovación</b>: Fomentamos la creatividad y el pensamiento disruptivo para ofrecer soluciones efectivas.</p>",
+      "<p><b>Responsabilidad</b>: Asumimos nuestro compromiso, cuidando el impacto social y ambiental.</p>",
+      "<p><b>Trabajo en equipo</b>: Creemos en la colaboración y en la unión de talentos para alcanzar metas comunes.</p>",
+      "<p><b>Empatía</b>: Valoramos las necesidades de las personas, priorizando su bienestar en nuestras decisiones.</p>"
     ]
   }
   
@@ -93,9 +93,10 @@ export class ConocenosComponent {
   }
 
   selectedItem?: any | null = null;
-
-  selectItem(index: any): void {
-    this.selectedItem = index;
+  selectedIndex?: any | null = null;
+  selectItem(item: any,index:any): void {
+    this.selectedItem = item;
+    this.selectedIndex=index;
     this.currentItem = 0;
 
     console.log(this.selectedItem);
