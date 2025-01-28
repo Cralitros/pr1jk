@@ -1,8 +1,8 @@
 <app-menunavegacion></app-menunavegacion>
 <div class="ctn">
   <button class="toggle-menu" (click)="toggleMenu()">☰ CONOCENOS</button>
-  <div #contenedor class="contenedor">
-    <div class="menui">
+  <div #contenedor class="contenedor menu-flotante-container" >
+    <div class="menui" [class.active]="isMenuVisible">
       <ul class="listaui">
         <li class="lista" *ngFor="let item of items; let i = index" [ngClass]="{'active': selectedIndex == i}"
           (click)="selectItem(item,i)">
@@ -13,7 +13,7 @@
 
     <!-- Contenedor para posicionar la sección -->
     <div style="position: relative;">
-      <div class="carousel">
+      <div class="carousel" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd($event)">
         <div class="carousel-item" *ngFor="let item of this.contenidoD(); let i = index"
           [ngClass]="{'focused': i === currentItem}" [style.transform]="getTransform(i)" [innerHTML]="item">
 

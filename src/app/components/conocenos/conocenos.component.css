@@ -74,6 +74,7 @@ ul {
   height: 150px; /* Altura del carrusel */
   overflow: hidden;
   margin: 20px auto;
+  touch-action: pan-y;
   /*border: 1px solid #ddd;*/
   background-color: #ffefef00;
 }
@@ -165,7 +166,7 @@ ul {
 
 button {
   position: absolute;
-  top: 50%;
+  top: 100%;
   transform: translateY(-50%);
   background-color: #3498db;
   border: none;
@@ -188,26 +189,50 @@ button {
   }
 }
 @media (max-width: 500px) {
+  ul{
+    position: relative;
+    left: 10px;
+  }
   .carousel {
-    min-width: 350px;
+    min-width: 420px;
+  }
+  .menu-flotante-container {
+    position: fixed;
+    top: 60px; /* Ajusta este valor según la altura de tu menú principal */
+    left: 205px;
+    transform: translateX(-50%);
+    /*width: 90%; /* Ancho del menú flotante (ajusta según sea necesario) */
+    /*max-width: 300px; /* Ancho máximo del menú flotante */
+    /*z-index: 1000; /* Asegura que el menú esté por encima de otros elementos */
   }
   .menui {
-    display: none; /* Ocultar el menú por defecto */
+    display: none; /* Oculta el menú por defecto */
+    position: fixed; /* Menú flotante */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.95); /* Fondo semitransparente */
+    z-index: 1000; /* Asegura que el menú esté por encima de otros elementos */
+    overflow-y: auto; /* Permite desplazamiento si el menú es muy largo */
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
   .menui.active {
     display: block; /* Mostrar el menú cuando esté activo */
     position: absolute; /* Opcional: Posicionar el menú flotante */
-    top: 0;
-    left: 0;
+    top: 50px;
+    left: -0;
     background: white; /* Estilo opcional */
-    width: 100%; /* Ocupa todo el ancho si es necesario */
+    width: 350px; /* Ocupa todo el ancho si es necesario */
     z-index: 1000;
+    height: 350px;
   }
 
   .toggle-menu {
     visibility: visible;
-    z-index: 1000;
+    z-index: 1001;
     top: 90px;
     left: 10px;
     display: inline-block; /* Mostrar el botón de invocación */
@@ -218,5 +243,20 @@ button {
     border-radius: 5px;
     cursor: pointer;
     margin-bottom: 10px; /* Espaciado con el resto del contenido */
+  }
+  .lista {
+    font-size: 24px; /* Tamaño de fuente más pequeño para móviles */
+    margin: 15px 0; /* Espaciado entre elementos */
+    margin: 15px 0; /* Espaciado entre elementos */
+    color: #dd7b30; /* Color del texto */
+    transition: color 0.3s ease; /* Transición suave para el color */
+  }
+  .lista:hover {
+    color: #e7442f; /* Cambia el color al pasar el mouse */
+    cursor: pointer;
+  }
+
+  .lista.active {
+    color: #cf4837; /* Color del texto activo */
   }
 }

@@ -86,6 +86,10 @@ export class ConocenosComponent {
     const margenTop = (ventanaHeight - contenedorHeight) / 2;
     const margenLeft = (ventanaWidth - contenedorWidth) / 2;
 
+    console.log(ventanaHeight);
+    console.log(contenedorWidth);
+    console.log(margenLeft);
+    
    /* this.renderer.setStyle(
       this.contenedor.nativeElement,
       'margin-top',
@@ -106,7 +110,7 @@ export class ConocenosComponent {
     this.currentItem = 0;
 
     console.log(this.selectedItem);
-    
+    this.isMenuVisible = false; // Oculta el menú después de seleccionar un ítem
 
   }
   elemento() {
@@ -148,10 +152,26 @@ export class ConocenosComponent {
     
     this.isMenuVisible = !this.isMenuVisible;
   }
+  touchStartX = 0;
+  touchEndX = 0;
 
-  /*selectMenu(item: string, index: number) {
-    // Manejo del clic en un elemento del menú
-    console.log(`Item seleccionado: ${item}`);
-    this.isMenuVisible = false; // Oculta el menú después de seleccionar un elemento (opcional)
-  }*/
+  onTouchStart(event: TouchEvent) {
+    this.touchStartX = event.touches[0].clientX;
+  }
+
+  onTouchMove(event: TouchEvent) {
+    this.touchEndX = event.touches[0].clientX;
+  }
+
+  onTouchEnd(event: TouchEvent) {
+    const deltaX = this.touchEndX - this.touchStartX;
+  
+    if (deltaX > 50) {
+      // Deslizamiento hacia la derecha (prev)
+      this.prev();
+    } else if (deltaX < -50) {
+      // Deslizamiento hacia la izquierda (next)
+      this.next();
+    }
+  }
 }
