@@ -66,7 +66,7 @@
 .submenu {
   position: absolute;
   top: 100%; /* Esto coloca el submenú justo debajo del elemento */
-  left: -18px;
+  left: -35px;
   width: 320px;
   list-style-type: none;
   padding-left: 10px;
@@ -160,6 +160,11 @@ img.imagen {
 .imagen-movil{
   padding: 10px;
 }
+.conoce{
+  cursor: pointer;
+  color: #264a64!important;
+  font-weight: bold;
+}
 /* Media query para ocultar el botón y hacer el menú siempre visible en pantallas grandes  .icono{
     padding: 10px 0px!important;
     /*padding-right: 0px;*/
@@ -183,7 +188,6 @@ img.imagen {
     padding: 0; /* Elimina relleno */
    /* display: inline-block; /* Permite manipular ancho y alto */
     text-align: center;    /* Alinea el texto horizontalmente */
-    
     height: 50px; /* Ajusta según tu diseño */
     
   }

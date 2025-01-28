@@ -46,4 +46,39 @@ export class MenunavegacionComponent {
     this.releaseMouse() ;
     this.closeMenu()  ;
   }
+  scrollToSection(sectionId: string): void {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+  smoothScrollTo(sectionId: string): void {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const targetPosition = element.offsetTop; // Posición del elemento
+      const startPosition = window.scrollY; // Posición actual del scroll
+      const distance = targetPosition - startPosition; // Distancia a recorrer
+      const duration = 1500; // Duración del desplazamiento en milisegundos
+      let startTime: number | null = null;
+
+      const animateScroll = (currentTime: number) => {
+        if (!startTime) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const run = this.easeInOutQuad(timeElapsed, startPosition, distance, duration);
+        window.scrollTo(0, run);
+        if (timeElapsed < duration) {
+          requestAnimationFrame(animateScroll);
+        }
+      };
+
+      requestAnimationFrame(animateScroll);
+    }
+  }
+
+  easeInOutQuad(t: number, b: number, c: number, d: number): number {
+    t /= d / 2;
+    if (t < 1) return (c / 2) * t * t + b;
+    t--;
+    return (-c / 2) * (t * (t - 2) - 1) + b;
+  }
 }

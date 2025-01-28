@@ -16,27 +16,33 @@ export class ConocenosComponent {
   items = ['NOSOTROS', 'MISIÓN', 'VISIÓN', 'VALORES', 'EQUIPO'];
   contenido:any={
     "NOSOTROS": [
-      "<p>En <b>AVANZA</b>, valoramos las ideas, el trabajo en equipo y el compromiso con la excelencia.</p>",
-      "<p>Somos un equipo apasionado por la calidad, enfocados en crear soluciones diferenciadoras.</p>",
-      "<p>Valoramos la confianza, el respeto y trabajamos para superar las expectativas de nuestros clientes.</p>",
-      "<p>Aquí no solo hacemos las cosas bien, las hacemos con corazón.</p>"
+      "<p>En <b><u>AVANZA</u></b>, valoramos las ideas, el trabajo en equipo y el compromiso con la excelencia.</p>",
+      "<p>Somos un equipo <b><u>apasionado por la calidad</u></b>, enfocados en crear soluciones diferenciadoras.</p>",
+      "<p><b><u>Valoramos la confianza</u></b>, el respeto y trabajamos para superar las expectativas de nuestros clientes.</p>",
+      "<p>Aquí no solo hacemos las cosas bien, <b><u>las hacemos con corazón</u></b>.</p>"
     ],
     "MISIÓN": [
-      "<p>Ser líderes reconocidos por nuestra excelencia, innovación y compromiso a nivel nacional e internacional.</p>",
-      "<p>Aspiramos a ser referencia en soluciones que transformen vidas y generen un impacto positivo.</p>",
-      "<p>Trabajamos con pasión y determinación para construir un futuro que refleje nuestros valores.</p>"
+      "<p><b><u>Ser líderes reconocidos por nuestra excelencia</u></b>, innovación y compromiso a nivel nacional e internacional.</p>",
+      "<p>Aspiramos a ser <b><u>referencia en soluciones</u></b> que transformen vidas y generen un impacto positivo.</p>",
+      "<p>Trabajamos con <b><u>pasión y determinación</u></b> para construir un futuro que refleje nuestros valores.</p>"
     ],
     "VISIÓN": [
-      "<p>Nos comprometemos a trabajar con pasión, innovación y responsabilidad, fomentando el bienestar comunitario.</p>",
-      "<p>Creemos en el impacto positivo de nuestro trabajo, con integridad y enfocados en superar expectativas.</p>"
+      "<p>Nos comprometemos a trabajar con <b><u>pasión, innovación y responsabilidad</u></b>, fomentando el bienestar comunitario.</p>",
+      "<p>Creemos en el impacto positivo de nuestro trabajo, con <b><u>integridad</u></b> y enfocados en superar expectativas.</p>"
     ],
     "VALORES": [
-      "<p><b>Integridad</b>: Actuamos con honestidad y ética, respetando siempre nuestros compromisos.</p>",
-      "<p><b>Excelencia</b>: Buscamos los más altos estándares de calidad en cada proyecto.</p>",
-      "<p><b>Innovación</b>: Fomentamos la creatividad y el pensamiento disruptivo para ofrecer soluciones efectivas.</p>",
-      "<p><b>Responsabilidad</b>: Asumimos nuestro compromiso, cuidando el impacto social y ambiental.</p>",
-      "<p><b>Trabajo en equipo</b>: Creemos en la colaboración y en la unión de talentos para alcanzar metas comunes.</p>",
-      "<p><b>Empatía</b>: Valoramos las necesidades de las personas, priorizando su bienestar en nuestras decisiones.</p>"
+      "<p><b><u>Integridad</u></b>: Actuamos con honestidad y ética, respetando siempre nuestros compromisos.</p>",
+      "<p><b><u>Excelencia</u></b>: Buscamos los más altos estándares de calidad en cada proyecto.</p>",
+      "<p><b><u>Innovación</u></b>: Fomentamos la creatividad y el pensamiento disruptivo para ofrecer soluciones efectivas.</p>",
+      "<p><b><u>Responsabilidad</u></b>: Asumimos nuestro compromiso, cuidando el impacto social y ambiental.</p>",
+      "<p><b><u>Trabajo en equipo</u></b>: Creemos en la colaboración y en la unión de talentos para alcanzar metas comunes.</p>",
+      "<p><b><u>Empatía</u></b>: Valoramos las necesidades de las personas, priorizando su bienestar en nuestras decisiones.</p>"
+    ],
+    "EQUIPO":[
+      "<img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR8AuGWYISTet874h-pYWvj_AO6GkCp7zUbQ&s' alt='' srcset=''>",
+      "<img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuYOYAhWERvU7F_k8lMZQ7Nvq71MnlFPqjRg&s' alt='' srcset=''>",
+      "<img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTChvFc_UVmfWb2A2U7pXcADgf6A_7yqqR34A&s' alt='' srcset=''>",
+      "<img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVoM5NVDa3u-QI7rqLbyMJja9YEUsvGTqNzw&s' alt='' srcset=''>"
     ]
   }
   
@@ -135,4 +141,17 @@ export class ConocenosComponent {
   next() {
     this.currentItem = (this.currentItem === this.contenido[this.selectedItem].length - 1) ? 0 : this.currentItem + 1;
   }
+  isMenuVisible: boolean = false; // Variable para controlar la visibilidad del menú
+
+  toggleMenu() {
+    console.log("click");
+    
+    this.isMenuVisible = !this.isMenuVisible;
+  }
+
+  /*selectMenu(item: string, index: number) {
+    // Manejo del clic en un elemento del menú
+    console.log(`Item seleccionado: ${item}`);
+    this.isMenuVisible = false; // Oculta el menú después de seleccionar un elemento (opcional)
+  }*/
 }

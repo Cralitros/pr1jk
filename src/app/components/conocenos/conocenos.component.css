@@ -151,8 +151,10 @@ ul {
   opacity: 0.5;
   transform: scale(0.8) translateX(0);
   transition: transform 0.5s ease, opacity 0.5s ease;
-  padding: 10px;
+  padding: 30px;
   font-size: 35px;
+  color: #264a64;
+  text-align: center;
 }
 
 .carousel-item.focused {
@@ -173,9 +175,48 @@ button {
 }
 
 .prev {
-  left: -50px;
+  /*left: -50px;*/
 }
 
 .next {
-  right: -50px;
+  right: -10px;
+}
+
+@media (min-width: 500px) {
+  .toggle-menu {
+    visibility: hidden;
+  }
+}
+@media (max-width: 500px) {
+  .carousel {
+    min-width: 350px;
+  }
+  .menui {
+    display: none; /* Ocultar el menú por defecto */
+  }
+
+  .menui.active {
+    display: block; /* Mostrar el menú cuando esté activo */
+    position: absolute; /* Opcional: Posicionar el menú flotante */
+    top: 0;
+    left: 0;
+    background: white; /* Estilo opcional */
+    width: 100%; /* Ocupa todo el ancho si es necesario */
+    z-index: 1000;
+  }
+
+  .toggle-menu {
+    visibility: visible;
+    z-index: 1000;
+    top: 90px;
+    left: 10px;
+    display: inline-block; /* Mostrar el botón de invocación */
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px; /* Espaciado con el resto del contenido */
+  }
 }
