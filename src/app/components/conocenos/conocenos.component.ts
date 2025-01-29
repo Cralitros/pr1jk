@@ -61,6 +61,7 @@ export class ConocenosComponent {
     // Obtén referencia del contenedor
     //this.contenedor = this.el.nativeElement.querySelector('.contenedor');
     this.centrarDiv();
+
   }
   // Detecta cambio de tamaño de la ventana
   @HostListener('window:resize', ['$event'])
@@ -101,6 +102,7 @@ export class ConocenosComponent {
       `${margenLeft}px`
     );
   }
+
 
   selectedItem?: any | null = null;
   selectedIndex?: any | null = null;

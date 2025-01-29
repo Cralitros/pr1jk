@@ -183,6 +183,32 @@ button {
   right: -10px;
 }
 
+.carousel-controls {
+  position: absolute;
+  top: 100%; /* Centra verticalmente */
+  left: 50%; /* Centra horizontalmente */
+  transform: translate(-50%, -50%); /* Ajusta el centrado */
+  display: flex;
+  gap: 0; /* Sin espacio entre los botones */
+  pointer-events: none; /* Permite hacer clic en los botones */
+}
+
+.carousel-controls button {
+  pointer-events: all; /* Permite hacer clic en los botones */
+  z-index: 10; /* Asegura que los botones estén por encima del carrusel */
+  padding: 8px 16px; /* Ajusta el tamaño de los botones */
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente */
+  color: white; /* Texto en blanco */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative; /* Para posicionar los botones correctamente */
+}
+
+.carousel-controls button:hover {
+  background-color: rgba(0, 0, 0, 0.9); /* Fondo más oscuro al pasar el mouse */
+}
+
 @media (min-width: 500px) {
   .toggle-menu {
     visibility: hidden;
