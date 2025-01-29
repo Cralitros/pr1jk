@@ -1,6 +1,9 @@
 .ctn{
+  
   display: flex;
-  justify-content: center;
+  flex-direction: column; /* Cambia a columna para apilar elementos verticalmente */
+  align-items: center; /* Centra los elementos horizontalmente */
+  justify-content: center; /* Centra los elementos verticalmente */
 }
 .contenedor{
   display: flex;
@@ -208,6 +211,15 @@ button {
 .carousel-controls button:hover {
   background-color: rgba(0, 0, 0, 0.9); /* Fondo más oscuro al pasar el mouse */
 }
+.txdt {
+  margin: 20px 0; /* Espaciado entre el botón y el carrusel */
+  text-align: center;
+}
+.seccion {
+  font-size: 24px; /* Tamaño del texto */
+  color: #333; /* Color del texto */
+  font-weight: bold; /* Negrita */
+}
 
 @media (min-width: 500px) {
   .toggle-menu {
@@ -215,6 +227,9 @@ button {
   }
 }
 @media (max-width: 500px) {
+  .txdt {
+    text-align: center;
+  }
   ul{
     position: relative;
     left: 10px;
