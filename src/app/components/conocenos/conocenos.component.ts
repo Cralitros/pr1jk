@@ -3,11 +3,12 @@ import { Component, ElementRef, HostListener, Renderer2, ViewChild } from '@angu
 import { debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
 import { MenunavegacionComponent } from "../menunavegacion/menunavegacion.component";
 import { WindowService } from '../../services/window.service';
+import { ParticleAnimationComponent } from "../particle-animation/particle-animation.component";
 
 @Component({
   selector: 'app-conocenos',
   standalone: true,
-  imports: [CommonModule, MenunavegacionComponent],
+  imports: [CommonModule, MenunavegacionComponent, ParticleAnimationComponent],
   templateUrl: './conocenos.component.html',
   styleUrl: './conocenos.component.css',
 
