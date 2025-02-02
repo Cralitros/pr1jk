@@ -2,11 +2,12 @@ import { Component, Inject, PLATFORM_ID, signal } from '@angular/core';
 import { MenunavegacionComponent } from "../menunavegacion/menunavegacion.component";
 import { AnimacionComponent } from "../animacion/animacion.component";
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { ParticleAnimationComponent } from "../particle-animation/particle-animation.component";
 
 @Component({
   selector: 'app-segundavista',
   standalone: true,
-  imports: [MenunavegacionComponent, AnimacionComponent,CommonModule],
+  imports: [MenunavegacionComponent, AnimacionComponent, CommonModule, ParticleAnimationComponent],
   templateUrl: './segundavista.component.html',
   styleUrl: './segundavista.component.css'
 })
