@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, HostListener, Renderer2, ViewChild } from '@angular/core';
-import { debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';
+
 import { MenunavegacionComponent } from "../menunavegacion/menunavegacion.component";
 import { WindowService } from '../../services/window.service';
 import { ParticleAnimationComponent } from "../particle-animation/particle-animation.component";

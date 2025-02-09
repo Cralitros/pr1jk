@@ -1,0 +1,19 @@
+<div class="contenedor">
+    <div style="position: relative;">
+        <div class="carousel" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd($event)">
+          <div class="carousel-item" *ngFor="let item of this.contenidoD(); let i = index"
+            [ngClass]="{'focused': i === currentItem}" [style.transform]="getTransform(i)" [innerHTML]="item" #carouselItem>
+  
+          </div>
+        </div>
+        <div class="carousel-controls">
+          <button class="prev" (click)="prev()">
+            <i class="fas fa-arrow-left"></i> Anterior
+          </button>
+          <button class="next" (click)="next()">
+            Siguiente <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+      
+</div>

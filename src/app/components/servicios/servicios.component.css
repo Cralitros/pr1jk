@@ -1,0 +1,181 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  .carousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 70%;
+    max-width: 1600px;
+    min-width: 1600px;
+    height: 60vh;
+    max-height: 1000px;
+    min-height: 1000px;
+    overflow: hidden;
+    perspective: 1000px;
+  }
+  
+  .carousel-item {
+    position: absolute;
+    width: 900px;
+    height: 900px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fce2a6;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    opacity: 0.5;
+    transform: scale(0.8) translateX(0);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    padding: 30px;
+    font-size: 35px;
+    color: #264a64;
+    text-align: center;
+  }
+  
+  .carousel-item.focused {
+    opacity: 1;
+    transform: scale(1) rotateY(360deg);
+    z-index: 10;
+  }
+  
+  button {
+    position: absolute;
+    top: 100%;
+    transform: translateY(-50%);
+    background-color: #3498db;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    color: white;
+  }
+  
+  .prev {
+    /*left: -50px;*/
+  }
+  
+  .next {
+    right: -10px;
+  }
+  
+  .carousel-controls {
+    position: absolute;
+    top: 100%; /* Centra verticalmente */
+    left: 50%; /* Centra horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta el centrado */
+    display: flex;
+    gap: 0; /* Sin espacio entre los botones */
+    pointer-events: none; /* Permite hacer clic en los botones */
+  }
+  
+  .carousel-controls button {
+    pointer-events: all; /* Permite hacer clic en los botones */
+    z-index: 10; /* Asegura que los botones estén por encima del carrusel */
+    padding: 8px 16px; /* Ajusta el tamaño de los botones */
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente */
+    color: white; /* Texto en blanco */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative; /* Para posicionar los botones correctamente */
+  }
+  
+  .carousel-controls button:hover {
+    background-color: rgba(0, 0, 0, 0.9); /* Fondo más oscuro al pasar el mouse */
+  }
+  .txdt {
+    margin: 20px 0; /* Espaciado entre el botón y el carrusel */
+    text-align: center;
+  }
+  .seccion {
+    font-size: 24px; /* Tamaño del texto */
+    color: #333; /* Color del texto */
+    font-weight: bold; /* Negrita */
+  }
+  /*****/
+
+  /*****/
+  
+  @media (min-width: 500px) {
+    .toggle-menu {
+      visibility: hidden;
+    }
+  }
+  @media (max-width: 500px) {
+    .txdt {
+      text-align: center;
+    }
+    ul{
+      position: relative;
+      left: 10px;
+    }
+    .carousel {
+      min-width: 420px;
+    }
+    .menu-flotante-container {
+      position: fixed;
+      top: 60px; /* Ajusta este valor según la altura de tu menú principal */
+      left: 205px;
+      transform: translateX(-50%);
+      /*width: 90%; /* Ancho del menú flotante (ajusta según sea necesario) */
+      /*max-width: 300px; /* Ancho máximo del menú flotante */
+      /*z-index: 1000; /* Asegura que el menú esté por encima de otros elementos */
+    }
+    .menui {
+      display: none; /* Oculta el menú por defecto */
+      position: fixed; /* Menú flotante */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.95); /* Fondo semitransparente */
+      z-index: 1000; /* Asegura que el menú esté por encima de otros elementos */
+      overflow-y: auto; /* Permite desplazamiento si el menú es muy largo */
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  
+    .menui.active {
+      display: block; /* Mostrar el menú cuando esté activo */
+      position: absolute; /* Opcional: Posicionar el menú flotante */
+      top: 50px;
+      left: -0;
+      background: white; /* Estilo opcional */
+      width: 350px; /* Ocupa todo el ancho si es necesario */
+      z-index: 1000;
+      height: 350px;
+    }
+  
+    .toggle-menu {
+      visibility: visible;
+      z-index: 1001;
+      top: 90px;
+      left: 10px;
+      display: inline-block; /* Mostrar el botón de invocación */
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 10px; /* Espaciado con el resto del contenido */
+    }
+    .lista {
+      font-size: 24px; /* Tamaño de fuente más pequeño para móviles */
+      margin: 15px 0; /* Espaciado entre elementos */
+      margin: 15px 0; /* Espaciado entre elementos */
+      color: #dd7b30; /* Color del texto */
+      transition: color 0.3s ease; /* Transición suave para el color */
+    }
+    .lista:hover {
+      color: #e7442f; /* Cambia el color al pasar el mouse */
+      cursor: pointer;
+    }
+  
+    .lista.active {
+      color: #cf4837; /* Color del texto activo */
+    }
+  }

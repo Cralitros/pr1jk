@@ -4,11 +4,12 @@ import { PresentacionComponent } from "./components/presentacion/presentacion.co
 import { SegundavistaComponent } from "./components/segundavista/segundavista.component";
 import { isPlatformBrowser } from '@angular/common';
 import { ConocenosComponent } from "./components/conocenos/conocenos.component";
+import { ServiciosComponent } from "./components/servicios/servicios.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, PresentacionComponent, SegundavistaComponent, ConocenosComponent],
+  imports: [RouterOutlet, PresentacionComponent, SegundavistaComponent, ConocenosComponent, ServiciosComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
