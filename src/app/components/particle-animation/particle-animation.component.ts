@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
-
+import { PLATFORM_ID, Inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 @Component({
   selector: 'app-particle-animation',
   standalone: true,
@@ -18,14 +19,16 @@ export class ParticleAnimationComponent {
   // Variables globales para el canvas y su contexto
   private canvas!: HTMLCanvasElement;
 
-  constructor() {}
+  constructor(@Inject(PLATFORM_ID) private platformId: any) {}
 
   ngOnInit(): void {
-    this.canvas = this.canvasRef.nativeElement;
-    this.ctx = this.canvas.getContext('2d')!;
-    this.resizeCanvas();
-    this.initParticles();
-    this.animate();
+    if (isPlatformBrowser(this.platformId)) {
+      this.canvas = this.canvasRef.nativeElement;
+      this.ctx = this.canvas.getContext('2d')!;
+      this.resizeCanvas();
+      this.initParticles();
+      this.animate();
+    }
   }
 
   ngOnDestroy(): void {

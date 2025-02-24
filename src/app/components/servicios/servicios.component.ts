@@ -19,7 +19,7 @@ export class ServiciosComponent {
   items = ['CAPACITACION', 'CONSULTORIA', 'ASESORIA', 'ACOMPAÑAMIENTO', 'NETWORKING'];
   contenido:any={
     "CAPACITACION": [
-      '<div class="lista it1"><img src="./assets/grp1/fondo.png" alt=""><img class="flecha" src="./assets/grp1/flecha1.png" alt=""></div>',
+      '<div class="lista it1"><img src="./assets/grp1/fondo.png" alt=""><img class="flecha" src="./assets/grp1/flecha1.png" alt="" style="position: absolute;"></div>',
       '<div class="lista it3"><img src="./assets/grp1/fondo.png" alt=""></div>',
       '<div class="lista it4"><img src="./assets/grp1/fondo.png" alt=""></div>',
       '<div class="lista it5"><img src="./assets/grp1/fondo.png" alt=""></div>'
